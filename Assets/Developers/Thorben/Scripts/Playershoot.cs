@@ -35,5 +35,18 @@ public class Playershoot : MonoBehaviour
         // Destroy the bullet after a certain amount of seconds
         Destroy(bullet, bulletLifetime);
     }
-}
 
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Add score when hitting an enemy
+            ScoreSystem.instance.AddScore(10);
+            // Destroy the enemy
+            Destroy(collision.gameObject);
+            // Destroy the bullet
+            Destroy(gameObject);
+        }
+    }
+}
