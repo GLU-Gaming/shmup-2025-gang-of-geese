@@ -56,8 +56,7 @@ public class movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Apply automatic forward movement with speed control
-        HandleAutomaticMovement();
+
 
         // Apply horizontal movement
         HandleHorizontalMovement();
@@ -131,30 +130,6 @@ public class movement : MonoBehaviour
         }
     }
 
-    private void HandleAutomaticMovement()
-    {
-        // Always apply a base forward force for automatic movement
-        float appliedForce = baseMotorForce * currentSpeedMultiplier;
-
-        // Add additional acceleration if requested
-        if (accelerationInput > 0)
-        {
-            appliedForce += accelerationForce;
-        }
-
-        // Apply the force in the forward direction
-        rb.AddForce(transform.forward * appliedForce, ForceMode.Force);
-
-        // Debug visualization
-        Debug.DrawRay(transform.position, transform.forward * 2, Color.red, 0.1f);
-
-        // Apply brakes if needed
-        if (currentBrakeForce > 0)
-        {
-            rb.AddForce(-rb.linearVelocity.normalized * currentBrakeForce);
-        }
-    }
-
     void ApplyBoundaries()
     {
         // Clamp position within boundaries
@@ -181,16 +156,6 @@ public class movement : MonoBehaviour
             Vector3 brakeVelocity = normalizedVelocity * brakeSpeed;
 
             rb.AddForce(-brakeVelocity * 2); // Apply limiting force
-        }
-
-        // Apply minimum speed
-        if (currentSpeed < minSpeed && !isReversing)
-        {
-            float boostNeeded = minSpeed - currentSpeed;
-            if (boostNeeded > 0)
-            {
-                rb.AddForce(transform.forward * boostNeeded, ForceMode.Acceleration);
-            }
         }
     }
 }

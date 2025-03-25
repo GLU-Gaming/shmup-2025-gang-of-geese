@@ -39,7 +39,7 @@ public class enemy : MonoBehaviour
 
         if (!isObstacleAhead && detectedObstacles.Count == 0)
         {
-            MoveForward();
+           
             if (Time.time - lastRandomMoveTime > randomMovementInterval)
             {
                 StartCoroutine(RandomSideMovement());
@@ -66,10 +66,7 @@ public class enemy : MonoBehaviour
         }
     }
 
-    void MoveForward()
-    {
-        transform.Translate(Vector3.up * forwardSpeed * Time.deltaTime);
-    }
+   
 
     IEnumerator RandomSideMovement()
     {
