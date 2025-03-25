@@ -129,6 +129,7 @@ public class enemy : MonoBehaviour
             {
                 rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
             }
+            Destroy(bullet, 5f);
         }
     }
 
