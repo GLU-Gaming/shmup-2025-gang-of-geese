@@ -37,6 +37,7 @@ public class enemy : MonoBehaviour
 
     void Update()
     {
+        
         CheckForObstacles();
 
         if (!isObstacleAhead && detectedObstacles.Count == 0)
@@ -115,7 +116,7 @@ public class enemy : MonoBehaviour
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.linearVelocity = bulletSpawnPoint.up * bulletSpeed;
+                rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
             }
         }
     }
