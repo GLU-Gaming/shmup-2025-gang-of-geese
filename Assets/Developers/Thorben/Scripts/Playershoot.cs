@@ -20,7 +20,7 @@ public class Playershoot : MonoBehaviour
         {
             Shoot();
         }
-         if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Shoot();
         }
@@ -34,12 +34,11 @@ public class Playershoot : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
+            rb.linearVelocity = bulletSpawnPoint.forward * -bulletSpeed; // Reverse the direction
         }
         // Destroy the bullet after a certain amount of seconds
         Destroy(bullet, bulletLifetime);
     }
-
 
     void OnCollisionEnter(Collision collision)
     {
