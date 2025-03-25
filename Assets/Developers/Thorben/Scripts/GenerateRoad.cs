@@ -73,6 +73,11 @@ public class InfiniteHighway : MonoBehaviour
 
     void RecycleRoad()
     {
+        if (roads.Count == 0)
+        {
+            return; // Exit if there are no roads to recycle
+        }
+
         // Remove the old road from the front of the list
         GameObject oldRoad = roads[0];
         roads.RemoveAt(0);
@@ -80,13 +85,15 @@ public class InfiniteHighway : MonoBehaviour
         // Either destroy or object pool
         Destroy(oldRoad);
 
-        // Calculate new spawn position based on the position of the last road
-        // Using exact positions for perfect alignment
-        GameObject lastRoad = roads[roads.Count - 1];
-        spawnZ = lastRoad.transform.position.z + roadLength;
+        if (roads.Count > 0)
+        {
+            // Calculate new spawn position based on the position of the last road
+            // Using exact positions for perfect alignment
+            GameObject lastRoad = roads[roads.Count - 1];
+            spawnZ = lastRoad.transform.position.z + roadLength;
+        }
 
         // Spawn a new road at the updated position
         SpawnRoad();
     }
-
 }
