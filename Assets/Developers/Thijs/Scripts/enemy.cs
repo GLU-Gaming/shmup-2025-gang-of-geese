@@ -68,7 +68,7 @@ public class enemy : MonoBehaviour
 
     void MoveForward()
     {
-        transform.Translate(Vector3.up * forwardSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
     }
 
     IEnumerator RandomSideMovement()
