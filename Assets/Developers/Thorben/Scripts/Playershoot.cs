@@ -20,6 +20,10 @@ public class Playershoot : MonoBehaviour
         {
             Shoot();
         }
+         if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Shoot();
+        }
     }
 
     void Shoot()
