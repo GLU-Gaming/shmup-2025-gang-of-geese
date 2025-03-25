@@ -37,7 +37,6 @@ public class enemy : MonoBehaviour
 
     void Update()
     {
-        
         CheckForObstacles();
 
         if (!isObstacleAhead && detectedObstacles.Count == 0)
