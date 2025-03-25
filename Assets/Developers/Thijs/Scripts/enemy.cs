@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,13 +20,11 @@ public class enemy : MonoBehaviour
 
     // Reference to the HP system
     private hpsystem playerHpSystem;
-
     private Vector3 startPosition;
     private bool movingRight = true;
     private bool isObstacleAhead = false;
     private bool isTargeting = false;
     private float lastRandomMoveTime;
-
     private List<GameObject> detectedObstacles = new List<GameObject>();
 
     void Start()
@@ -38,7 +36,6 @@ public class enemy : MonoBehaviour
 
         // Find the HP system component
         playerHpSystem = Object.FindFirstObjectByType<hpsystem>();
-
         if (playerHpSystem == null)
         {
             Debug.LogError("No HP system found in the scene!");
@@ -50,17 +47,16 @@ public class enemy : MonoBehaviour
     void Update()
     {
         CheckForObstacles();
-
         if (!isObstacleAhead && detectedObstacles.Count == 0)
         {
             if (Time.time - lastRandomMoveTime > randomMovementInterval)
             {
                 StartCoroutine(RandomSideMovement());
             }
-        }
-        else if (!isTargeting)
-        {
-            StartCoroutine(TargetPlayer());
+            else if (!isTargeting)
+            {
+                StartCoroutine(TargetPlayer());
+            }
         }
     }
 
@@ -68,7 +64,6 @@ public class enemy : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, obstacleCheckDistance, obstacleLayer);
         isObstacleAhead = hit.collider != null;
-
         if (isObstacleAhead && !detectedObstacles.Contains(hit.collider.gameObject))
         {
             detectedObstacles.Add(hit.collider.gameObject);
@@ -105,16 +100,15 @@ public class enemy : MonoBehaviour
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         yield return new WaitForSeconds(targetingDelay);
+
         float moveTime = 2f;
         float elapsedTime = 0f;
-
         while (elapsedTime < moveTime)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.position, sideSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         isTargeting = false;
     }
 
@@ -125,10 +119,15 @@ public class enemy : MonoBehaviour
             yield return new WaitForSeconds(shootInterval);
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
             if (rb != null)
             {
                 rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
             }
+
+            // Add a component to handle collision and destruction
+            BulletCollisionHandler collisionHandler = bullet.AddComponent<BulletCollisionHandler>();
+            collisionHandler.playerHpSystem = playerHpSystem;  // Pass the reference
             Destroy(bullet, 5f);
         }
     }
@@ -141,26 +140,34 @@ public class enemy : MonoBehaviour
         Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
                         new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
     }
+}
+
+public class BulletCollisionHandler : MonoBehaviour
+{
+    public hpsystem playerHpSystem;
 
     void OnCollisionEnter(Collision collision)
     {
-        // Add more specific debug to verify this is being called
-        Debug.Log($"Collision detected with: {collision.gameObject.name}");
-
         if (collision.gameObject.CompareTag("Player"))
         {
-        }
-            if (playerHpSystem == null)
-            {
-                playerHpSystem = collision.gameObject.GetComponent<hpsystem>();
-            }
-
-            Debug.Log("Player collision confirmed");
+            // Apply damage to the player
             if (playerHpSystem != null)
             {
                 playerHpSystem.TakeDamage();
             }
-        
-    }
+            else
+            {
+                Debug.LogError("Player HP System is null!");
+            }
 
+            // Destroy the bullet upon hitting the player
+            Destroy(gameObject);
+        }
+
+        //Destroy bullet on any other collision
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }

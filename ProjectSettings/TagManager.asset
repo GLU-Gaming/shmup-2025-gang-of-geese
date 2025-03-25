@@ -12,10 +12,10 @@ TagManager:
   - player
   - Water
   - UI
-  - trap
+  - enemy
   - bullet
-  - 
-  - 
+  - trap
+  - enemy bullet
   - 
   - 
   - 

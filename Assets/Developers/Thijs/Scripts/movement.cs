@@ -20,10 +20,9 @@ public class movement : MonoBehaviour
     private bool isReversing = false;
     private float currentSpeedMultiplier = 1f;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
-
         if (rb != null)
         {
             if ((rb.constraints & RigidbodyConstraints.FreezePositionZ) != 0)
@@ -67,7 +66,6 @@ public class movement : MonoBehaviour
 
         accelerationInput = 0f;
         currentBrakeForce = 0f;
-
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             currentSpeedMultiplier += 0.05f;
@@ -79,7 +77,6 @@ public class movement : MonoBehaviour
         {
             currentSpeedMultiplier -= 0.05f;
             currentSpeedMultiplier = Mathf.Clamp(currentSpeedMultiplier, 0.5f, 2.0f);
-
             float forwardVelocity = Vector3.Dot(rb.linearVelocity, transform.forward);
             if (forwardVelocity < minSpeed && currentSpeedMultiplier < 0.6f)
             {
@@ -114,13 +111,28 @@ public class movement : MonoBehaviour
         float currentSpeed = rb.linearVelocity.magnitude;
         float adjustedMaxSpeed = maxSpeed * currentSpeedMultiplier;
         adjustedMaxSpeed = Mathf.Clamp(adjustedMaxSpeed, minSpeed, maxSpeed);
-
         if (currentSpeed > adjustedMaxSpeed)
         {
             float brakeSpeed = currentSpeed - adjustedMaxSpeed;
             Vector3 normalizedVelocity = rb.linearVelocity.normalized;
             Vector3 brakeVelocity = normalizedVelocity * brakeSpeed;
             rb.AddForce(-brakeVelocity * 2);
+        }
+    }
+
+    // NEW: Counteract Bullet Momentum
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<BulletCollisionHandler>() != null) // Check if the colliding object has the BulletCollisionHandler
+        {
+            Rigidbody bulletRb = collision.gameObject.GetComponent<Rigidbody>();
+            if (bulletRb != null)
+            {
+                // Calculate the impulse to counteract the bullet's momentum
+                Vector3 impulse = bulletRb.mass * bulletRb.linearVelocity;
+                rb.AddForce(-impulse, ForceMode.Impulse); // Apply an opposite impulse
+
+            }
         }
     }
 }
