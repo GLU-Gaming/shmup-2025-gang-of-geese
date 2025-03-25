@@ -1,12 +1,13 @@
-
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class enemy : MonoBehaviour
 {
-
-
-
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public float bulletSpeed = 10f;
+    public float shootInterval = 2f;
     public float forwardSpeed = 1f;
     public float sideSpeed = 2f;
     public float maxLeftDistance = 5f;
@@ -31,15 +32,16 @@ public class enemy : MonoBehaviour
         lastRandomMoveTime = Time.time;
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
+        StartCoroutine(ShootBullet());
     }
 
     void Update()
     {
+        
         CheckForObstacles();
 
         if (!isObstacleAhead && detectedObstacles.Count == 0)
         {
-           
             if (Time.time - lastRandomMoveTime > randomMovementInterval)
             {
                 StartCoroutine(RandomSideMovement());
@@ -66,15 +68,10 @@ public class enemy : MonoBehaviour
         }
     }
 
-   
-
     IEnumerator RandomSideMovement()
     {
         lastRandomMoveTime = Time.time;
-
-        // Decide direction
         movingRight = Random.value > 0.5f;
-
         float moveTime = Random.Range(0.5f, 1.5f);
         float elapsedTime = 0f;
 
@@ -82,12 +79,9 @@ public class enemy : MonoBehaviour
         {
             float direction = movingRight ? 1 : -1;
             Vector3 movement = Vector3.right * direction * sideSpeed * Time.deltaTime;
-
-            // Clamp the movement within boundaries
             Vector3 newPosition = transform.position + movement;
             float clampedX = Mathf.Clamp(newPosition.x, startPosition.x - maxLeftDistance, startPosition.x + maxRightDistance);
             transform.position = new Vector3(clampedX, newPosition.y, newPosition.z);
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -96,15 +90,10 @@ public class enemy : MonoBehaviour
     IEnumerator TargetPlayer()
     {
         isTargeting = true;
-
-        // Face the player
         Vector3 directionToPlayer = player.position - transform.position;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
         yield return new WaitForSeconds(targetingDelay);
-
-        // Move towards the player
         float moveTime = 2f;
         float elapsedTime = 0f;
 
@@ -118,19 +107,26 @@ public class enemy : MonoBehaviour
         isTargeting = false;
     }
 
+    IEnumerator ShootBullet()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(shootInterval);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
+            }
+        }
+    }
+
     void OnDrawGizmos()
     {
-        // Visualize the obstacle check ray
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + transform.up * obstacleCheckDistance);
-
-        // Visualize the movement boundaries
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
                         new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
     }
 }
-
-
-    
-
