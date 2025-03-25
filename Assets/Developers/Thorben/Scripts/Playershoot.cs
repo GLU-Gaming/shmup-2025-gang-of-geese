@@ -30,26 +30,9 @@ public class Playershoot : MonoBehaviour
     {
         // Instantiate the bullet at the spawn point
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        // Add velocity to the bullet
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity = bulletSpawnPoint.forward * -bulletSpeed; // Reverse the direction
-        }
-        // Destroy the bullet after a certain amount of seconds
-        Destroy(bullet, bulletLifetime);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            // Add score when hitting an enemy
-            ScoreSystem.instance.AddScore(10);
-            // Destroy the enemy
-            Destroy(collision.gameObject);
-            // Destroy the bullet
-            Destroy(gameObject);
-        }
+        // Add the Bullet script to the instantiated bullet
+        Bullet bulletScript = bullet.AddComponent<Bullet>();
+        bulletScript.bulletSpeed = bulletSpeed;  // Set the bullet speed
+        bulletScript.bulletLifetime = bulletLifetime;  // Set the bullet lifetime
     }
 }
