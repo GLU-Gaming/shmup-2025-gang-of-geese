@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ScoreSystem : MonoBehaviour
 {
-    public static ScoreSystem instance; // Singleton instance
-    public Text scoreText; // UI Text to display the score
-    private int score = 0; // Current score
+    public static ScoreSystem instance; 
+    public TextMeshProUGUI scoreText; 
+    private int score = 0; 
 
     void Awake()
     {

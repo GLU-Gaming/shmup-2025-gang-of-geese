@@ -18,6 +18,9 @@ public class enemy : MonoBehaviour
     public LayerMask obstacleLayer;
     public Transform player;
 
+    // Reference to the HP system
+    private hpsystem playerHpSystem;
+
     private Vector3 startPosition;
     private bool movingRight = true;
     private bool isObstacleAhead = false;
@@ -32,12 +35,20 @@ public class enemy : MonoBehaviour
         lastRandomMoveTime = Time.time;
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Find the HP system component
+        playerHpSystem = Object.FindFirstObjectByType<hpsystem>();
+
+        if (playerHpSystem == null)
+        {
+            Debug.LogError("No HP system found in the scene!");
+        }
+
         StartCoroutine(ShootBullet());
     }
 
     void Update()
     {
-        
         CheckForObstacles();
 
         if (!isObstacleAhead && detectedObstacles.Count == 0)
@@ -129,4 +140,26 @@ public class enemy : MonoBehaviour
         Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
                         new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Add more specific debug to verify this is being called
+        Debug.Log($"Collision detected with: {collision.gameObject.name}");
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+        }
+            if (playerHpSystem == null)
+            {
+                playerHpSystem = collision.gameObject.GetComponent<hpsystem>();
+            }
+
+            Debug.Log("Player collision confirmed");
+            if (playerHpSystem != null)
+            {
+                playerHpSystem.TakeDamage();
+            }
+        
+    }
+
 }
