@@ -120,19 +120,19 @@ public class movement : MonoBehaviour
         }
     }
 
-    // NEW: Counteract Bullet Momentum
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<BulletCollisionHandler>() != null) // Check if the colliding object has the BulletCollisionHandler
-        {
-            Rigidbody bulletRb = collision.gameObject.GetComponent<Rigidbody>();
-            if (bulletRb != null)
-            {
-                // Calculate the impulse to counteract the bullet's momentum
-                Vector3 impulse = bulletRb.mass * bulletRb.linearVelocity;
-                rb.AddForce(-impulse, ForceMode.Impulse); // Apply an opposite impulse
+    //// NEW: Counteract Bullet Momentum
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.GetComponent<BulletCollisionHandler>() != null) // Check if the colliding object has the BulletCollisionHandler
+    //    {
+    //        Rigidbody bulletRb = collision.gameObject.GetComponent<Rigidbody>();
+    //        if (bulletRb != null)
+    //        {
+    //            // Calculate the impulse to counteract the bullet's momentum
+    //            Vector3 impulse = bulletRb.mass * bulletRb.linearVelocity ;
+    //            rb.AddForce(-impulse, ForceMode.Impulse); // Apply an opposite impulse
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 }

@@ -97,18 +97,40 @@ public class enemy : MonoBehaviour
     {
         isTargeting = true;
         Vector3 directionToPlayer = player.position - transform.position;
-        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        yield return new WaitForSeconds(targetingDelay);
 
-        float moveTime = 2f;
-        float elapsedTime = 0f;
-        while (elapsedTime < moveTime)
+        // Only allow targeting if player is to the right (positive x direction)
+        if (directionToPlayer.x > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, sideSpeed * Time.deltaTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            // Calculate direction while ignoring Z-axis difference
+            Vector3 horizontalDirectionToPlayer = new Vector3(directionToPlayer.x, directionToPlayer.y, 0);
+            float angle = Mathf.Atan2(horizontalDirectionToPlayer.y, horizontalDirectionToPlayer.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            // Wait for the specified targeting delay before moving
+            yield return new WaitForSeconds(targetingDelay);
+
+            float moveTime = 1f;
+            float elapsedTime = 0f;
+            while (elapsedTime < moveTime)
+            {
+                // Only move towards the player if they are still to the right
+                if (player.position.x > transform.position.x)
+                {
+                    // Move only on X-axis, keeping original Y and Z
+                    Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, transform.position.z);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, sideSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    // Break out of the targeting if player moves left
+                    break;
+                }
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
+
         isTargeting = false;
     }
 

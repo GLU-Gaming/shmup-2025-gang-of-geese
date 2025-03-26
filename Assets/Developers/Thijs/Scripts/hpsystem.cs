@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class hpsystem : MonoBehaviour
 {
     // Array to hold the 5 life UI prefabs
@@ -52,22 +52,10 @@ public class hpsystem : MonoBehaviour
         }
     }
 
-    //// Reset all life prefabs to visible state
-    //public void ResetLifePrefabs()
-    //{
-    //    foreach (GameObject lifePrefab in lifePrefabs)
-    //    {
-    //        if (lifePrefab != null)
-    //        {
-    //            lifePrefab.SetActive(true);
-    //        }
-    //    }
-    //    currentLives = totalLives;
-    //}
-
-    // Method to handle player death
+ 
     void PlayerDeath()
     {
+        SceneManager.LoadScene("game over");
         Debug.Log("Player has died! Game Over!");
     }
 
