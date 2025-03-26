@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,12 +18,13 @@ public class enemy : MonoBehaviour
     public LayerMask obstacleLayer;
     public Transform player;
 
+    // Reference to the HP system
+    private hpsystem playerHpSystem;
     private Vector3 startPosition;
     private bool movingRight = true;
     private bool isObstacleAhead = false;
     private bool isTargeting = false;
     private float lastRandomMoveTime;
-
     private List<GameObject> detectedObstacles = new List<GameObject>();
 
     void Start()
@@ -32,24 +33,30 @@ public class enemy : MonoBehaviour
         lastRandomMoveTime = Time.time;
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Find the HP system component
+        playerHpSystem = Object.FindFirstObjectByType<hpsystem>();
+        if (playerHpSystem == null)
+        {
+            Debug.LogError("No HP system found in the scene!");
+        }
+
         StartCoroutine(ShootBullet());
     }
 
     void Update()
     {
-        
         CheckForObstacles();
-
         if (!isObstacleAhead && detectedObstacles.Count == 0)
         {
             if (Time.time - lastRandomMoveTime > randomMovementInterval)
             {
                 StartCoroutine(RandomSideMovement());
             }
-        }
-        else if (!isTargeting)
-        {
-            StartCoroutine(TargetPlayer());
+            else if (!isTargeting)
+            {
+                StartCoroutine(TargetPlayer());
+            }
         }
     }
 
@@ -57,7 +64,6 @@ public class enemy : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, obstacleCheckDistance, obstacleLayer);
         isObstacleAhead = hit.collider != null;
-
         if (isObstacleAhead && !detectedObstacles.Contains(hit.collider.gameObject))
         {
             detectedObstacles.Add(hit.collider.gameObject);
@@ -91,17 +97,38 @@ public class enemy : MonoBehaviour
     {
         isTargeting = true;
         Vector3 directionToPlayer = player.position - transform.position;
-        float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg - 90;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        yield return new WaitForSeconds(targetingDelay);
-        float moveTime = 2f;
-        float elapsedTime = 0f;
 
-        while (elapsedTime < moveTime)
+        // Only allow targeting if player is to the right (positive x direction)
+        if (directionToPlayer.x > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.position, sideSpeed * Time.deltaTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            // Calculate direction while ignoring Z-axis difference
+            Vector3 horizontalDirectionToPlayer = new Vector3(directionToPlayer.x, directionToPlayer.y, 0);
+            float angle = Mathf.Atan2(horizontalDirectionToPlayer.y, horizontalDirectionToPlayer.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            // Wait for the specified targeting delay before moving
+            yield return new WaitForSeconds(targetingDelay);
+
+            float moveTime = 1f;
+            float elapsedTime = 0f;
+            while (elapsedTime < moveTime)
+            {
+                // Only move towards the player if they are still to the right
+                if (player.position.x > transform.position.x)
+                {
+                    // Move only on X-axis, keeping original Y and Z
+                    Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, transform.position.z);
+                    transform.position = Vector3.MoveTowards(transform.position, targetPosition, sideSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    // Break out of the targeting if player moves left
+                    break;
+                }
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
 
         isTargeting = false;
@@ -114,10 +141,15 @@ public class enemy : MonoBehaviour
             yield return new WaitForSeconds(shootInterval);
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
             if (rb != null)
             {
                 rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
             }
+
+            // Add a component to handle collision and destruction
+            BulletCollisionHandler collisionHandler = bullet.AddComponent<BulletCollisionHandler>();
+            collisionHandler.playerHpSystem = playerHpSystem;  // Pass the reference
             Destroy(bullet, 5f);
         }
     }
@@ -129,5 +161,35 @@ public class enemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
                         new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
+    }
+}
+
+public class BulletCollisionHandler : MonoBehaviour
+{
+    public hpsystem playerHpSystem;
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Apply damage to the player
+            if (playerHpSystem != null)
+            {
+                playerHpSystem.TakeDamage();
+            }
+            else
+            {
+                Debug.LogError("Player HP System is null!");
+            }
+
+            // Destroy the bullet upon hitting the player
+            Destroy(gameObject);
+        }
+
+        //Destroy bullet on any other collision
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

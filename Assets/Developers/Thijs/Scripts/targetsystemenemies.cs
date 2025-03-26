@@ -8,7 +8,7 @@ public class targetsystemenemies : MonoBehaviour
     public float targetingDelay = 8f;
     private bool canTarget = true;
     private bool isMoving = false;
-    private SpriteRenderer spriteRenderer;
+
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class targetsystemenemies : MonoBehaviour
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+   
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class targetsystemenemies : MonoBehaviour
         bool playerIsOnLeft = player.position.x < transform.position.x;
 
         // Flip sprite based on player position
-        spriteRenderer.flipX = playerIsOnLeft;
+      
 
         // Wait for targeting delay
         yield return new WaitForSeconds(targetingDelay);
