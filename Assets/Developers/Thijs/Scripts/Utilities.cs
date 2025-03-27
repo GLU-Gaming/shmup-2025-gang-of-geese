@@ -9,7 +9,7 @@ public class Utilities : MonoBehaviour
     public void GoToGame()
     {
 
-SceneManager.LoadScene("level selector");
+SceneManager.LoadScene(1);
 
     }
 
