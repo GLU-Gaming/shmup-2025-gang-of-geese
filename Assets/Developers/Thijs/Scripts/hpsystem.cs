@@ -55,7 +55,7 @@ public class hpsystem : MonoBehaviour
  
     void PlayerDeath()
     {
-        SceneManager.LoadScene("game over");
+        SceneManager.LoadScene(2);
         Debug.Log("Player has died! Game Over!");
     }
 
