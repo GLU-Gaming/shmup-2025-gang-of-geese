@@ -29,5 +29,13 @@ public class Playershoot : MonoBehaviour
         Bullet bulletScript = bullet.AddComponent<Bullet>();
         bulletScript.bulletSpeed = bulletSpeed;
         bulletScript.bulletLifetime = bulletLifetime;
+
+        TextMesh textMesh = bullet.GetComponentInChildren<TextMesh>();
+        if (textMesh != null)
+        {
+            textMesh.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        }
+
+        bullet.transform.Rotate(0, 270, 0);
     }
 }
