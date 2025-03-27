@@ -176,6 +176,7 @@ public class BulletCollisionHandler : MonoBehaviour
             if (playerHpSystem != null)
             {
                 playerHpSystem.TakeDamage();
+
             }
             else
             {
