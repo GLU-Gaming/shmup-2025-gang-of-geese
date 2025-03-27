@@ -31,7 +31,7 @@ public class movement : MonoBehaviour
                 Debug.Log("Unfroze Z-axis constraint to allow forward movement");
             }
 
-            rb.linearDamping = 0.5f;
+            rb.linearDamping = 5f;
         }
         else
         {
