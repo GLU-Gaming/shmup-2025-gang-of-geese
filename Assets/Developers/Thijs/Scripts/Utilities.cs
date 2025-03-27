@@ -9,7 +9,7 @@ public class Utilities : MonoBehaviour
     public void GoToGame()
     {
 
-SceneManager.LoadScene("level selector");
+        SceneManager.LoadScene("game");
 
     }
 
@@ -18,8 +18,13 @@ SceneManager.LoadScene("level selector");
         Application.Quit();
         Debug.Log("Quit");
     }
-    public void TestFunctie()
+
+
+    public void GoToGameStart()
     {
-        Debug.Log("De knop werkt!");
+
+        SceneManager.LoadScene("start screen");
+
     }
 }
+

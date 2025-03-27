@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class enemymovetomistrap : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float avoidanceSpeed = 3f;
+    [SerializeField] private Vector2 avoidanceDirection = Vector2.right;
+
+    private Rigidbody2D rb;
+
+    private void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AvoidTrap()
     {
-        
+        rb.linearVelocity = avoidanceDirection.normalized * avoidanceSpeed;
     }
+
 }

@@ -50,6 +50,8 @@ public class hpsystem : MonoBehaviour
             // Also disable the GameObject if needed
             lifePrefabs[currentLives].SetActive(false);
         }
+        if (currentLives <= 0)
+            PlayerDeath();
     }
 
  

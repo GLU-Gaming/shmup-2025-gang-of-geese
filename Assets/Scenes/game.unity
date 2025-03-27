@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xRange: 3
-  horizontalSpeed: 0.8
+  horizontalSpeed: 1.4
   baseMotorForce: 0.1
   accelerationForce: 0.6
   brakeForce: 0.4
