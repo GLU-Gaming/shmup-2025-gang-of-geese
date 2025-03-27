@@ -36,10 +36,13 @@ public class hpsystem : MonoBehaviour
             }
 
             lifePrefabs[currentLives].SetActive(false);
-        }
+        }        if (currentLives <= 0)
+            PlayerDeath();
+
 
         // Call the static method to damage all players
         Player.DamageAllPlayers();
+
     }
 
     void PlayerDeath()
