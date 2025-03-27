@@ -9,7 +9,13 @@ public class Utilities : MonoBehaviour
     public void GoToGame()
     {
 
-        SceneManager.LoadScene("game");
+SceneManager.LoadScene(1);
+
+    }
+    public void GoToMenu()
+    {
+
+        SceneManager.LoadScene(0);
 
     }
 
@@ -18,13 +24,8 @@ public class Utilities : MonoBehaviour
         Application.Quit();
         Debug.Log("Quit");
     }
-
-
-    public void GoToGameStart()
+    public void TestFunctie()
     {
-
-        SceneManager.LoadScene("start screen");
-
+        Debug.Log("De knop werkt!");
     }
 }
-

@@ -31,7 +31,7 @@ public class movement : MonoBehaviour
                 Debug.Log("Unfroze Z-axis constraint to allow forward movement");
             }
 
-            rb.linearDamping = 0.5f;
+            rb.linearDamping = 5f;
         }
         else
         {
@@ -55,25 +55,25 @@ public class movement : MonoBehaviour
     void GetInput()
     {
         horizontalInput = 0f;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             horizontalInput = 1f;
         }
-        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             horizontalInput = -1f;
         }
 
         accelerationInput = 0f;
         currentBrakeForce = 0f;
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             currentSpeedMultiplier += 0.05f;
             currentSpeedMultiplier = Mathf.Clamp(currentSpeedMultiplier, 0.5f, 2.0f);
             accelerationInput = 1f;
         }
 
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             currentSpeedMultiplier -= 0.05f;
             currentSpeedMultiplier = Mathf.Clamp(currentSpeedMultiplier, 0.5f, 2.0f);
