@@ -7,8 +7,12 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody rb;
 
+    private ScoreSystem scoreSystem;
+
     void Start()
     {
+        scoreSystem = FindFirstObjectByType<ScoreSystem>();
+
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -36,7 +40,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            ScoreSystem.instance.AddScore(10);
+            scoreSystem?.AddScore(10);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

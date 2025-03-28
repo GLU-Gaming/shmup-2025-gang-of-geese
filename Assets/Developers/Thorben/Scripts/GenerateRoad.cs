@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class InfiniteHighway : MonoBehaviour
 {
-    public GameObject roadPrefab;
+    public GameObject[] roadPrefabs; // Array of possible road prefabs
+    public int[] spawnWeights; // Corresponding weights for each prefab
     public int numberOfRoads = 7;
     public float roadLength = 20f;
     public float speed = 10f;
@@ -53,7 +54,8 @@ public class InfiniteHighway : MonoBehaviour
 
     void SpawnRoad()
     {
-        GameObject newRoad = Instantiate(roadPrefab, new Vector3(0f, 0f, spawnZ), Quaternion.identity);
+        GameObject selectedRoadPrefab = GetRandomRoadPrefab(); // Use weighted selection
+        GameObject newRoad = Instantiate(selectedRoadPrefab, new Vector3(0f, 0f, spawnZ), Quaternion.identity);
         newRoad.transform.SetParent(transform);
         roads.Add(newRoad);
         spawnZ += roadLength;
@@ -77,5 +79,28 @@ public class InfiniteHighway : MonoBehaviour
         }
 
         SpawnRoad();
+    }
+
+    GameObject GetRandomRoadPrefab()
+    {
+        int totalWeight = 0;
+        foreach (int weight in spawnWeights)
+        {
+            totalWeight += weight;
+        }
+
+        int randomValue = Random.Range(0, totalWeight);
+        int cumulativeWeight = 0;
+
+        for (int i = 0; i < roadPrefabs.Length; i++)
+        {
+            cumulativeWeight += spawnWeights[i];
+            if (randomValue < cumulativeWeight)
+            {
+                return roadPrefabs[i];
+            }
+        }
+
+        return roadPrefabs[0]; // Fallback
     }
 }
