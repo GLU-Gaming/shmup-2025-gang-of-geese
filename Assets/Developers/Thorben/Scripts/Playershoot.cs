@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerWeaponSystem : MonoBehaviour
+public class Playershoot : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
@@ -124,31 +124,18 @@ public class PlayerWeaponSystem : MonoBehaviour
 
         // Add Bullet component
         Bullet bulletScript = bullet.AddComponent<Bullet>();
-
-        // Maintain consistent speed regardless of scale
         bulletScript.bulletSpeed = bulletSpeed;
         bulletScript.bulletLifetime = bulletLifetime;
 
         // Scale the bullet based on charge time
         bullet.transform.localScale *= scaleMultiplier;
 
-        // Scale the BoxCollider proportionally
-        BoxCollider boxCollider = bullet.GetComponent<BoxCollider>();
-        if (boxCollider != null)
-        {
-            // Scale the BoxCollider size
-            boxCollider.size *= scaleMultiplier;
-
-            // Optionally, adjust the BoxCollider center to maintain its relative position
-            boxCollider.center *= scaleMultiplier;
-        }
-
         // Adjust text rotation
         TextMesh textMesh = bullet.GetComponentInChildren<TextMesh>();
         if (textMesh != null)
         {
             textMesh.transform.localRotation = Quaternion.Euler(90, 0, 0);
-            // Scale the text size
+            // Optionally, you could scale the text size here if desired
             textMesh.characterSize *= scaleMultiplier;
         }
 
