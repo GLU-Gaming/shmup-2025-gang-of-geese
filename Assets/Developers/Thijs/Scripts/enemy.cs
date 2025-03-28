@@ -162,6 +162,18 @@ public class enemy : MonoBehaviour
         Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
                         new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            hpsystem playerHpSystem = collision.gameObject.GetComponent<hpsystem>();
+            if (playerHpSystem != null)
+            {
+                playerHpSystem.TakeDamage();
+            }
+        }
+    }
 }
 
 public class BulletCollisionHandler : MonoBehaviour
@@ -194,3 +206,4 @@ public class BulletCollisionHandler : MonoBehaviour
         }
     }
 }
+
