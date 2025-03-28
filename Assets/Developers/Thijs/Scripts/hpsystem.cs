@@ -1,4 +1,4 @@
-using System.Collections; // Add this line
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -88,3 +88,4 @@ public class hpsystem : MonoBehaviour
         isFlashing = false;
     }
 }
+
