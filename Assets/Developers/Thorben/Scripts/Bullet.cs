@@ -5,14 +5,31 @@ public class Bullet : MonoBehaviour
     public float bulletSpeed = 20f;
     public float bulletLifetime = 5f;
 
+    private Rigidbody rb;
+
     void Start()
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.linearVelocity = transform.right * -bulletSpeed;
+            // Use AddForce instead of directly setting velocity
+            rb.useGravity = false;
+            rb.AddForce(-transform.right * bulletSpeed, ForceMode.VelocityChange);
         }
         Destroy(gameObject, bulletLifetime);
+    }
+
+    void FixedUpdate()
+    {
+        if (rb != null)
+        {
+            // Normalize the velocity to maintain consistent speed
+            Vector3 currentVelocity = rb.linearVelocity;
+            Vector3 desiredVelocity = -transform.right * bulletSpeed;
+
+            // Smoothly correct the velocity
+            rb.linearVelocity = Vector3.Lerp(currentVelocity, desiredVelocity, Time.fixedDeltaTime * 10f);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
