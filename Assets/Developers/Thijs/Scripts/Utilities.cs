@@ -19,6 +19,13 @@ SceneManager.LoadScene(1);
 
     }
 
+    public void GoToControls()
+    {
+
+        SceneManager.LoadScene(3);
+
+    }
+
     public void QuitGame()
     {
         Application.Quit();
