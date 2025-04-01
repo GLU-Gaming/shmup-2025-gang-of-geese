@@ -40,8 +40,11 @@ public class enemy : MonoBehaviour
         {
             Debug.LogError("No HP system found in the scene!");
         }
+        if (bulletSpawnPoint != null)
+        {
+            StartCoroutine(ShootBullet());
+        }
 
-        StartCoroutine(ShootBullet());
     }
 
     void Update()

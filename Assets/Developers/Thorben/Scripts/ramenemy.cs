@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class ramenemy : MonoBehaviour
 {
@@ -9,10 +10,17 @@ public class ramenemy : MonoBehaviour
     private Vector3 originalPosition;
     private bool isRamming = false;
     private float ramTimer = 0f;
+    hpsystem playerHpSystem;
 
     void Start()
     {
         originalPosition = transform.position;
+        playerHpSystem = Object.FindFirstObjectByType<hpsystem>();
+        if (playerHpSystem == null)
+        {
+            Debug.LogError("No HP system found in the scene!");
+        }
+       
     }
 
     void Update()
@@ -35,13 +43,14 @@ public class ramenemy : MonoBehaviour
         isRamming = true;
 
         Vector3 ramTarget = player.transform.position;
+        ramTarget.z -= 1.5f;
         while (Vector3.Distance(transform.position, ramTarget) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, ramTarget, ramSpeed * Time.deltaTime);
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         while (Vector3.Distance(transform.position, originalPosition) > 0.1f)
         {
@@ -50,5 +59,16 @@ public class ramenemy : MonoBehaviour
         }
 
         isRamming = false;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //hpsystem playerHpSystem = collision.gameObject.GetComponent<hpsystem>();
+            if (playerHpSystem != null)
+            {
+                playerHpSystem.TakeDamage();
+            }
+        }
     }
 }
