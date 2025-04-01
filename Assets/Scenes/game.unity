@@ -978,7 +978,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3207,6 +3207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 7340850140467179096, guid: a60c6438e1652b7428afff01179dea5b, type: 3}
+  - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
   spawnArea: {fileID: 1939133189}
   minSpawnDelay: 2.69
   maxSpawnDelay: 5
