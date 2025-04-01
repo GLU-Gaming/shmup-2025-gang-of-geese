@@ -8,6 +8,9 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("List of enemy prefabs to spawn")]
     public GameObject[] enemyPrefabs;
 
+    [Tooltip("Spawn chances for each prefab (0-100)")]
+    public int[] spawnChances;
+
     [Tooltip("Box Collider defining spawn area")]
     public BoxCollider spawnArea;
 
@@ -34,8 +37,6 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Fixed Y position for spawning")]
     public float fixedYPosition = 0f;
 
-    
-
     [Header("Debugging")]
     public bool showSpawnAreaGizmos = true;
 
@@ -50,6 +51,12 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("No spawn area BoxCollider assigned to EnemySpawner!");
             enabled = false;
             return;
+        }
+
+        // Check if spawn chances match prefabs
+        if (spawnChances.Length != enemyPrefabs.Length)
+        {
+            Debug.LogWarning("Spawn chances array length doesn't match enemy prefabs array length!");
         }
 
         // Start spawning waves
@@ -94,8 +101,8 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        // Select a random enemy prefab
-        GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        // Select a prefab based on spawn chances
+        GameObject enemyToSpawn = SelectEnemyBasedOnChance();
 
         // Get spawn area local bounds
         Vector3 localMin = spawnArea.center - spawnArea.size / 2;
@@ -113,14 +120,11 @@ public class EnemySpawner : MonoBehaviour
 
         // Add small random offset to prevent spawning in exact same position
         Vector3 randomOffset = Random.insideUnitSphere * spawnOffset;
+        randomOffset.y = 0; // Keep Y position fixed
         worldSpawnPosition += randomOffset;
 
-    
-        
-
-
         // Instantiate the enemy
-        GameObject spawnedEnemy = Instantiate(enemyToSpawn, worldSpawnPosition, Quaternion.Euler(0,0,0));
+        GameObject spawnedEnemy = Instantiate(enemyToSpawn, worldSpawnPosition, Quaternion.Euler(0, 0, 0));
 
         Rigidbody enemyRigidbody = spawnedEnemy.GetComponent<Rigidbody>();
         if (enemyRigidbody != null)
@@ -129,6 +133,34 @@ public class EnemySpawner : MonoBehaviour
         }
 
         enemiesSpawnedInCurrentWave++;
+    }
+
+    private GameObject SelectEnemyBasedOnChance()
+    {
+        // If no spawn chances set, use default random selection
+        if (spawnChances == null || spawnChances.Length == 0)
+        {
+            return enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        }
+
+        // Get a random number from 0 to 100
+        int randomValue = Random.Range(0, 101);
+
+        // Find which enemy should spawn based on chance
+        int currentChanceValue = 0;
+
+        for (int i = 0; i < enemyPrefabs.Length && i < spawnChances.Length; i++)
+        {
+            currentChanceValue += spawnChances[i];
+
+            if (randomValue <= currentChanceValue)
+            {
+                return enemyPrefabs[i];
+            }
+        }
+
+        // Default fallback to first enemy
+        return enemyPrefabs[0];
     }
 
     // Visualize spawn area in Scene view
