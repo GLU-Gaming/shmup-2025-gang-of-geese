@@ -4,7 +4,6 @@ using System.Collections;
 public class ramenemy : MonoBehaviour
 {
     public float ramSpeed = 10f;
-    public float ramDistance = 5f;
     public float ramCooldown = 5f;
 
     private Vector3 originalPosition;
@@ -42,7 +41,7 @@ public class ramenemy : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.5f); // Pause before returning
+        yield return new WaitForSeconds(0.5f);
 
         while (Vector3.Distance(transform.position, originalPosition) > 0.1f)
         {
@@ -53,4 +52,3 @@ public class ramenemy : MonoBehaviour
         isRamming = false;
     }
 }
-
