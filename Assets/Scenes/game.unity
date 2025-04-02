@@ -1728,6 +1728,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2096632609850245254, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2248381534935411012, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_LocalScale.y
       value: 3.5
