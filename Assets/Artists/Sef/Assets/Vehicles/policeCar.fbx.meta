@@ -3,7 +3,12 @@ guid: bf5f6e7c0c37b884b8ff55d613b5870d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Police car Texture
+    second: {fileID: 2100000, guid: c4ed404026ced594bbd35862f2e14aa7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
