@@ -128,8 +128,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.02
+      value: 1.84
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
       propertyPath: m_LocalPosition.y
@@ -176,7 +188,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0068ab8b20b9804681e9af4d5f4ee54, type: 3}
---- !u!1001 &715446435
+--- !u!1001 &394108676
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -186,15 +198,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bf5f6e7c0c37b884b8ff55d613b5870d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.9082055
+      value: 3.542
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf5f6e7c0c37b884b8ff55d613b5870d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.73657763
+      value: 0.79328024
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf5f6e7c0c37b884b8ff55d613b5870d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.25976
+      value: -17.538
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf5f6e7c0c37b884b8ff55d613b5870d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -685,5 +697,5 @@ SceneRoots:
   - {fileID: 282242603}
   - {fileID: 735199988}
   - {fileID: 823588693}
-  - {fileID: 715446435}
   - {fileID: 1840508993}
+  - {fileID: 394108676}
