@@ -1864,7 +1864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6111627267966553475, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_text
-      value: Back
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 8542776452336915012, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_LocalScale.y
