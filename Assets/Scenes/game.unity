@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8037735, g: 0.27146307, b: 0.27146307, a: 0.627451}
+  m_Color: {r: 0.8037735, g: 0.27146307, b: 0.27146307, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1158,6 +1158,7 @@ GameObject:
   - component: {fileID: 399373850}
   - component: {fileID: 399373849}
   - component: {fileID: 399373852}
+  - component: {fileID: 399373853}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1283,6 +1284,18 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &399373853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399373848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e8efecec230c242bbbf9a43ea5bbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &445040643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,6 +2869,7 @@ MonoBehaviour:
   - {fileID: 567639145}
   totalLives: 5
   screenFlashImage: {fileID: 35960136}
+  screenShake: {fileID: 399373853}
 --- !u!4 &1613858338
 Transform:
   m_ObjectHideFlags: 0
