@@ -3414,8 +3414,8 @@ MonoBehaviour:
   - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
   spawnChances: 4b00000019000000
   spawnArea: {fileID: 1939133189}
-  minSpawnDelay: 2.69
-  maxSpawnDelay: 5
+  minSpawnDelay: 1
+  maxSpawnDelay: 2
   enemiesPerWave: 4
   totalWaves: 3
   spawnOffset: 0
@@ -3440,7 +3440,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 27.000006, y: 0.15451664, z: 3.4071178}
+  m_Size: {x: 25.00001, y: 0.15451664, z: 3.4071178}
   m_Center: {x: -1.4636546, y: -0.42274174, z: -1.2035583}
 --- !u!1 &1963011915
 GameObject:
