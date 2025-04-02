@@ -7,7 +7,8 @@ public class hpsystem : MonoBehaviour
 {
     [SerializeField] private GameObject[] lifePrefabs;
     [SerializeField] private int totalLives = 5;
-    [SerializeField] private Image screenFlashImage; // Reference to the UI Image for screen flash
+    [SerializeField] private Image screenFlashImage;
+    [SerializeField] private ScreenShake screenShake;
     private int currentLives;
     private bool isFlashing = false;
 
@@ -25,7 +26,6 @@ public class hpsystem : MonoBehaviour
             Debug.Log($"Life Prefab {i} initial state: {lifePrefabs[i].name} - Active: {lifePrefabs[i].activeSelf}");
         }
 
-        // Ensure the screen flash image is initially transparent
         if (screenFlashImage != null)
         {
             screenFlashImage.color = new Color(1, 0, 0, 0);
@@ -52,10 +52,15 @@ public class hpsystem : MonoBehaviour
             PlayerDeath();
         }
 
-        // Trigger the screen flash effect
         if (!isFlashing)
         {
             StartCoroutine(ScreenFlash());
+        }
+
+        if (screenShake != null)
+        {
+            Debug.Log("Shaking screen");
+            StartCoroutine(screenShake.Shake(0.2f, 0.1f));
         }
     }
 
@@ -79,13 +84,11 @@ public class hpsystem : MonoBehaviour
         isFlashing = true;
         if (screenFlashImage != null)
         {
-            // Flash the screen red
-            screenFlashImage.color = new Color(1, 0, 0, 0.5f);
-            yield return new WaitForSeconds(0.1f);
-            screenFlashImage.color = new Color(1, 0, 0, 0);
-            yield return new WaitForSeconds(0.1f);
+            screenFlashImage.color = new Color32(0xcd, 0x45, 0x45, 0x50);
+            yield return new WaitForSeconds(0.2f);
+            screenFlashImage.color = new Color32(0xcd, 0x45, 0x45, 0x00);
+            yield return new WaitForSeconds(0.2f);
         }
         isFlashing = false;
     }
 }
-
