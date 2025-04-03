@@ -63,8 +63,8 @@ Transform:
   m_GameObject: {fileID: 7340850140467179096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.33, z: -3.37}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -0.0014652, y: 0.84877, z: -3.4099}
+  m_LocalScale: {x: 0.60555375, y: 0.60555375, z: 0.60555375}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3130409023900785202}
@@ -142,8 +142,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.7817036, z: 3.687809}
+  m_Center: {x: 0, y: -0.047771394, z: 0.33783913}
 --- !u!54 &3940289479040907089
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -226,14 +226,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  autoFindPlayer: 1
+  playerTag: Player
   bulletPrefab: {fileID: 5479727768674246007, guid: 1ba1cd48b49c32346ad296816a050853, type: 3}
   fragBombPrefab: {fileID: 7835050155780554071, guid: 2b5d6a18c152cf848bcd07eb83311dce, type: 3}
   bulletSpawnPoint: {fileID: 6631606431185825550}
   sideSpeed: 2
   homingSpeed: 3
-  shootInterval: 1
   zigZagAmplitude: 2
   zigZagFrequency: 2
+  shootInterval: 1
+  bulletSpeed: 10
+  bulletLifetime: 5
+  startPositionTransform: {fileID: 0}
+  leftBoundTransform: {fileID: 0}
+  rightBoundTransform: {fileID: 0}
+  bombPositionTransform: {fileID: 0}
+  zigZagPositionTransform: {fileID: 0}
+  actionSequence: []
 --- !u!1001 &3241407654621740505
 PrefabInstance:
   m_ObjectHideFlags: 0
