@@ -63,8 +63,8 @@ Transform:
   m_GameObject: {fileID: 7340850140467179096}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.33, z: -3.37}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -0.0023918, y: 1.337, z: -3.4352}
+  m_LocalScale: {x: 0.672303, y: 0.672303, z: 0.672303}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3130409023900785202}
@@ -142,8 +142,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.83577335, z: 1.0311098}
+  m_Center: {x: 0, y: 0.008399818, z: -0.051847897}
 --- !u!54 &3940289479040907089
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,21 +178,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7340850140467179096}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cb12274183022d4d8318d807631c6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7835050155780554071, guid: 2b5d6a18c152cf848bcd07eb83311dce, type: 3}
   bulletSpawnPoint: {fileID: 7610833305596345510}
-  bulletSpeed: 10
+  bulletSpeed: 11
   shootInterval: 2
   forwardSpeed: 1
-  sideSpeed: 2
+  sideSpeed: 3
   maxLeftDistance: 3
   maxRightDistance: 3
   obstacleCheckDistance: 1
-  randomMovementInterval: 3
+  randomMovementInterval: 4
   targetingDelay: 8
   obstacleLayer:
     serializedVersion: 2
@@ -228,9 +228,9 @@ MonoBehaviour:
   player: {fileID: 0}
   autoFindPlayer: 1
   playerTag: Player
-  bulletPrefab: {fileID: 2880936007704984485, guid: fd3738209a3b0944595575d90c089d53, type: 3}
-  fragBombPrefab: {fileID: 5479727768674246007, guid: 1ba1cd48b49c32346ad296816a050853, type: 3}
-  bulletSpawnPoint: {fileID: 7610833305596345510}
+  bulletPrefab: {fileID: 5479727768674246007, guid: 1ba1cd48b49c32346ad296816a050853, type: 3}
+  fragBombPrefab: {fileID: 7835050155780554071, guid: 2b5d6a18c152cf848bcd07eb83311dce, type: 3}
+  bulletSpawnPoint: {fileID: 6631606431185825550}
   sideSpeed: 2
   homingSpeed: 3
   zigZagAmplitude: 2
@@ -238,26 +238,11 @@ MonoBehaviour:
   shootInterval: 1
   bulletSpeed: 10
   bulletLifetime: 5
-  startPosition:
-    positionType: 1
-    targetTransform: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
-  leftBoundary:
-    positionType: 1
-    targetTransform: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
-  rightBoundary:
-    positionType: 1
-    targetTransform: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
-  bombPosition:
-    positionType: 1
-    targetTransform: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
-  zigZagPosition:
-    positionType: 1
-    targetTransform: {fileID: 0}
-    position: {x: 0, y: 0, z: 0}
+  startPositionTransform: {fileID: 0}
+  leftBoundTransform: {fileID: 0}
+  rightBoundTransform: {fileID: 0}
+  bombPositionTransform: {fileID: 0}
+  zigZagPositionTransform: {fileID: 0}
   actionSequence: []
 --- !u!1001 &3241407654621740505
 PrefabInstance:
