@@ -3784,7 +3784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1927441034933148617, guid: ec2bdd7737179c2408c2b3e1a17c7faf, type: 3}
+  - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
   - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
   spawnChances: 4b00000019000000
   spawnArea: {fileID: 1939133189}
