@@ -66,9 +66,15 @@ public class hpsystem : MonoBehaviour
 
     void PlayerDeath()
     {
+        ScoreSystem scoreSystem = Object.FindFirstObjectByType<ScoreSystem>();
+        if (scoreSystem != null)
+        {
+            scoreSystem.SetFinalScore();
+        }
         SceneManager.LoadScene(2);
         Debug.Log("Player has died! Game Over!");
     }
+
 
     public void AddLife()
     {
