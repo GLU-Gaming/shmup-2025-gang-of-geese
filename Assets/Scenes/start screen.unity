@@ -488,6 +488,18 @@ PrefabInstance:
       value: PoliceSwatVanBeter
       objectReference: {fileID: 0}
     - target: {fileID: 2300288305006640770, guid: b754e5fd45d81864fa069fae2f469f0d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300288305006640770, guid: b754e5fd45d81864fa069fae2f469f0d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300288305006640770, guid: b754e5fd45d81864fa069fae2f469f0d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300288305006640770, guid: b754e5fd45d81864fa069fae2f469f0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.7550793
       objectReference: {fileID: 0}
