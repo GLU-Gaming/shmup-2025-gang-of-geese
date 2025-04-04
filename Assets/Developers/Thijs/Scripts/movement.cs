@@ -42,7 +42,7 @@ public class movement : MonoBehaviour
     void Update()
     {
         GetInput();
-        //Debug.Log($"Speed Multiplier: {currentSpeedMultiplier}, Current Speed: {rb.linearVelocity.magnitude}");
+        //Debug.Log($"Speed Multiplier: {currentSpeedMultiplier}, Current Speed: {rb.linearVelocity.magnitude}");ws
     }
 
     private void FixedUpdate()
