@@ -69,14 +69,14 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.3
         value: -15
-        inSlope: -19.04762
-        outSlope: -19.04762
+        inSlope: -19.35484
+        outSlope: -19.35484
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3.7166667
+        time: 3.7
         value: -25
         inSlope: -21.62162
         outSlope: -21.62162
@@ -87,14 +87,14 @@ AnimationClip:
       - serializedVersion: 3
         time: 5.15
         value: -84
-        inSlope: -7.2727265
-        outSlope: -7.2727265
+        inSlope: -7.1287136
+        outSlope: -7.1287136
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 5.366667
+        time: 5.383333
         value: -87
         inSlope: 0
         outSlope: 0
@@ -133,7 +133,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 5.366667
+    m_StopTime: 5.383333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -201,14 +201,14 @@ AnimationClip:
       - serializedVersion: 3
         time: 3.3
         value: -15
-        inSlope: -19.04762
-        outSlope: -19.04762
+        inSlope: -19.35484
+        outSlope: -19.35484
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 3.7166667
+        time: 3.7
         value: -25
         inSlope: -21.62162
         outSlope: -21.62162
@@ -219,14 +219,14 @@ AnimationClip:
       - serializedVersion: 3
         time: 5.15
         value: -84
-        inSlope: -7.2727265
-        outSlope: -7.2727265
+        inSlope: -7.1287136
+        outSlope: -7.1287136
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 5.366667
+        time: 5.383333
         value: -87
         inSlope: 0
         outSlope: 0
