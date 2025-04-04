@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1998537564555941835, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
       propertyPath: m_Name
-      value: enemy type 1  Variant 1
+      value: the real enemy swatvan
       objectReference: {fileID: 0}
     - target: {fileID: 2480350852528428701, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,6 +60,30 @@ PrefabInstance:
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 7835050155780554071, guid: 2b5d6a18c152cf848bcd07eb83311dce, type: 3}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5661845
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Size.y
+      value: 1.415285
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Size.z
+      value: 2.6506732
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0068041016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Center.y
+      value: 0.10174613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786236552675190913, guid: 956f589e3482b5a4688a7f6194abc66f, type: 3}
+      propertyPath: m_Center.z
+      value: -0.039014447
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
