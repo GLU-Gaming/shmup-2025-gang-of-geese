@@ -5,6 +5,7 @@ public class ScoreSystem : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     private int score = 0;
+    public static int finalScore;
 
     void Awake()
     {
@@ -12,7 +13,7 @@ public class ScoreSystem : MonoBehaviour
 
     void Start()
     {
-        UpdateScoreText(); 
+        UpdateScoreText();
     }
 
     public void AddScore(int points)
@@ -28,5 +29,9 @@ public class ScoreSystem : MonoBehaviour
             scoreText.text = score.ToString();
         }
     }
-}
 
+    public void SetFinalScore()
+    {
+        finalScore = score;
+    }
+}

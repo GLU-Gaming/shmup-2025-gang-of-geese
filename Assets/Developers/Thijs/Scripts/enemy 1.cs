@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
-public class PoliceCarEnemy : MonoBehaviour
+public class PoliceSwatCarEnemy : MonoBehaviour
 {
     [Header("Target Settings")]
     public Transform player;
@@ -25,12 +26,49 @@ public class PoliceCarEnemy : MonoBehaviour
     public float bulletSpeed = 10f;
     public float bulletLifetime = 5f;
 
-    [Header("Position Transforms")]
-    public Transform startPositionTransform;
-    public Transform leftBoundTransform;
-    public Transform rightBoundTransform;
-    public Transform bombPositionTransform;
-    public Transform zigZagPositionTransform;
+    [Header("Activation Settings")]
+    [Tooltip("Should the enemy activate automatically on start?")]
+    public bool activateOnStart = true;
+
+    [System.Serializable]
+    public class PositionConfig
+    {
+        public enum PositionType { UseTransform, UseVector3 }
+
+        [Tooltip("Whether to use a Transform reference or a direct Vector3 position")]
+        public PositionType positionType = PositionType.UseVector3;
+
+        [Tooltip("The Transform to use as position reference (if positionType is UseTransform)")]
+        public Transform targetTransform;
+
+        [Tooltip("The direct position to use (if positionType is UseVector3)")]
+        public Vector3 position;
+
+        public Vector3 GetPosition(Transform defaultTransform = null)
+        {
+            if (positionType == PositionType.UseTransform && targetTransform != null)
+                return targetTransform.position;
+            else if (positionType == PositionType.UseTransform && defaultTransform != null)
+                return defaultTransform.position;
+            return position;
+        }
+    }
+
+    [Header("Position Configuration")]
+    [Tooltip("The starting position of the enemy")]
+    public PositionConfig startPosition = new PositionConfig();
+
+    [Tooltip("The left boundary for left-right movement")]
+    public PositionConfig leftBoundary = new PositionConfig();
+
+    [Tooltip("The right boundary for left-right movement")]
+    public PositionConfig rightBoundary = new PositionConfig();
+
+    [Tooltip("The position to move to when throwing a frag bomb")]
+    public PositionConfig bombPosition = new PositionConfig();
+
+    [Tooltip("The position to move to for zigzag shooting")]
+    public PositionConfig zigZagPosition = new PositionConfig();
 
     [System.Serializable]
     public enum ActionType
@@ -48,13 +86,15 @@ public class PoliceCarEnemy : MonoBehaviour
     {
         public ActionType actionType;
         public float duration = 3f;
-        public Transform targetPosition; // For MoveToPosition
+        public PositionConfig targetPosition = new PositionConfig(); // For MoveToPosition
     }
 
     [Header("Action Sequence")]
     public List<EnemyAction> actionSequence = new List<EnemyAction>();
 
-    private Vector3 startPosition;
+    private Vector3 cachedStartPosition;
+    private Vector3 cachedLeftBoundary;
+    private Vector3 cachedRightBoundary;
     private bool movingRight = true;
     private bool isPerformingAction = false;
     private int currentActionIndex = 0;
@@ -62,12 +102,22 @@ public class PoliceCarEnemy : MonoBehaviour
 
     void Start()
     {
-        // If no start position is assigned, use current position
-        if (startPositionTransform == null)
+        // Cache positions
+        cachedStartPosition = startPosition.GetPosition(transform);
+
+        // Set default left boundary if not configured
+        if (leftBoundary.positionType == PositionConfig.PositionType.UseVector3 && leftBoundary.position == Vector3.zero)
         {
-            startPositionTransform = transform;
+            leftBoundary.position = cachedStartPosition - new Vector3(5f, 0, 0);
         }
-        startPosition = startPositionTransform.position;
+        cachedLeftBoundary = leftBoundary.GetPosition(transform);
+
+        // Set default right boundary if not configured
+        if (rightBoundary.positionType == PositionConfig.PositionType.UseVector3 && rightBoundary.position == Vector3.zero)
+        {
+            rightBoundary.position = cachedStartPosition + new Vector3(5f, 0, 0);
+        }
+        cachedRightBoundary = rightBoundary.GetPosition(transform);
 
         // Find player if needed
         if (player == null && autoFindPlayer)
@@ -83,21 +133,10 @@ public class PoliceCarEnemy : MonoBehaviour
             }
         }
 
-        // Set default boundaries if not specified
-        if (leftBoundTransform == null)
+        // Activate the enemy if set to activate on start
+        if (activateOnStart)
         {
-            GameObject leftBound = new GameObject("LeftBound");
-            leftBound.transform.position = startPosition - new Vector3(5f, 0, 0);
-            leftBound.transform.parent = transform.parent;
-            leftBoundTransform = leftBound.transform;
-        }
-
-        if (rightBoundTransform == null)
-        {
-            GameObject rightBound = new GameObject("RightBound");
-            rightBound.transform.position = startPosition + new Vector3(5f, 0, 0);
-            rightBound.transform.parent = transform.parent;
-            rightBoundTransform = rightBound.transform;
+            Activate();
         }
     }
 
@@ -107,7 +146,14 @@ public class PoliceCarEnemy : MonoBehaviour
         if (!isActive)
         {
             isActive = true;
+            if (actionSequence.Count == 0)
+            {
+                Debug.LogWarning("No actions in sequence. Configure actions in the inspector.");
+                return;
+            }
+            StopAllCoroutines(); // Stop any running coroutines to avoid conflicts
             StartCoroutine(ExecuteActionSequence());
+            Debug.Log("Enemy activated and executing action sequence!");
         }
     }
 
@@ -115,11 +161,13 @@ public class PoliceCarEnemy : MonoBehaviour
     {
         isActive = false;
         StopAllCoroutines();
+        Debug.Log("Enemy deactivated!");
     }
 
     IEnumerator ExecuteActionSequence()
     {
         currentActionIndex = 0;
+        Debug.Log("Starting action sequence with " + actionSequence.Count + " actions.");
 
         while (isActive)
         {
@@ -132,16 +180,18 @@ public class PoliceCarEnemy : MonoBehaviour
             if (currentActionIndex >= actionSequence.Count)
             {
                 currentActionIndex = 0; // Loop back to start
+                Debug.Log("Restarting action sequence from beginning.");
             }
 
             EnemyAction currentAction = actionSequence[currentActionIndex];
+            Debug.Log("Executing action: " + currentAction.actionType + " (Duration: " + currentAction.duration + ")");
 
             isPerformingAction = true;
             yield return StartCoroutine(ExecuteAction(currentAction));
             isPerformingAction = false;
 
             currentActionIndex++;
-            yield return null; // Small delay before next action
+            yield return new WaitForSeconds(0.1f); // Small delay before next action
         }
     }
 
@@ -150,50 +200,50 @@ public class PoliceCarEnemy : MonoBehaviour
         switch (action.actionType)
         {
             case ActionType.MoveLeftRight:
+                Debug.Log("Starting MoveLeftRight action");
                 yield return StartCoroutine(MoveLeftRight(action.duration));
                 break;
             case ActionType.HomeToPlayer:
+                Debug.Log("Starting HomeToPlayer action");
                 yield return StartCoroutine(HomeToPlayer(action.duration));
                 break;
             case ActionType.ShootBullets:
+                Debug.Log("Starting ShootBullets action");
                 yield return StartCoroutine(ShootBullets(action.duration));
                 break;
             case ActionType.ThrowFragBomb:
+                Debug.Log("Starting ThrowFragBomb action");
+                Vector3 bombPos = bombPosition.GetPosition(transform);
+                yield return StartCoroutine(MoveToPosition(bombPos, 1f)); // Move to bomb position first
                 ThrowFragBomb();
                 yield return new WaitForSeconds(2f); // Wait for bomb activation
                 break;
             case ActionType.ZigZagShooting:
+                Debug.Log("Starting ZigZagShooting action");
                 yield return StartCoroutine(ZigZagShooting(action.duration));
                 break;
             case ActionType.MoveToPosition:
-                if (action.targetPosition != null)
-                {
-                    yield return StartCoroutine(MoveToPosition(action.targetPosition.position, action.duration));
-                }
-                else
-                {
-                    Debug.LogWarning("No target position assigned for MoveToPosition action!");
-                    yield return null;
-                }
+                Vector3 targetPos = action.targetPosition.GetPosition(transform);
+                Debug.Log("Starting MoveToPosition action to " + targetPos);
+                yield return StartCoroutine(MoveToPosition(targetPos, action.duration));
                 break;
         }
+        Debug.Log("Finished action: " + action.actionType);
     }
 
     IEnumerator MoveLeftRight(float duration)
     {
         float elapsedTime = 0f;
-        Vector3 leftBound = leftBoundTransform.position;
-        Vector3 rightBound = rightBoundTransform.position;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && isActive)
         {
             float direction = movingRight ? 1 : -1;
             Vector3 movement = Vector3.right * direction * sideSpeed * Time.deltaTime;
             transform.position += movement;
 
             // Reverse direction if out of bounds
-            if ((movingRight && transform.position.x > rightBound.x) ||
-                (!movingRight && transform.position.x < leftBound.x))
+            if ((movingRight && transform.position.x > cachedRightBoundary.x) ||
+                (!movingRight && transform.position.x < cachedLeftBoundary.x))
             {
                 movingRight = !movingRight;
             }
@@ -207,9 +257,13 @@ public class PoliceCarEnemy : MonoBehaviour
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && isActive)
         {
-            if (player == null) yield break; // Ensure player is valid
+            if (player == null)
+            {
+                Debug.LogWarning("Player reference is null! Cannot home to player.");
+                yield break; // Ensure player is valid
+            }
 
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             transform.position += directionToPlayer * homingSpeed * Time.deltaTime;
@@ -223,7 +277,7 @@ public class PoliceCarEnemy : MonoBehaviour
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && isActive)
         {
             ShootBullet();
             yield return new WaitForSeconds(shootInterval);
@@ -233,14 +287,28 @@ public class PoliceCarEnemy : MonoBehaviour
 
     void ShootBullet()
     {
-        if (bulletPrefab == null || bulletSpawnPoint == null) return;
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Bullet prefab is not assigned!");
+            return;
+        }
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        // Use bulletSpawnPoint if available, otherwise use enemy position
+        Vector3 spawnPosition = bulletSpawnPoint != null ?
+            bulletSpawnPoint.position : transform.position;
+
+        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
         if (bulletRb != null && player != null)
         {
-            bulletRb.linearVelocity = (player.position - bulletSpawnPoint.position).normalized * bulletSpeed;
+            Vector3 direction = (player.position - spawnPosition).normalized;
+            bulletRb.linearVelocity = direction * bulletSpeed;
+        }
+        else if (bulletRb != null)
+        {
+            // If no player, shoot forward
+            bulletRb.linearVelocity = transform.forward * bulletSpeed;
         }
 
         Destroy(bullet, bulletLifetime);
@@ -251,45 +319,57 @@ public class PoliceCarEnemy : MonoBehaviour
         float elapsedTime = 0f;
         Vector3 startingPos = transform.position;
 
-        while (elapsedTime < duration)
+        Debug.Log("Moving from " + startingPos + " to " + targetPosition + " over " + duration + " seconds");
+
+        while (elapsedTime < duration && isActive)
         {
-            transform.position = Vector3.Lerp(startingPos, targetPosition, elapsedTime / duration);
+            float t = elapsedTime / duration;
+            transform.position = Vector3.Lerp(startingPos, targetPosition, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = targetPosition; // Ensure it reaches the exact position
+        // Ensure it reaches the exact position
+        if (isActive)
+        {
+            transform.position = targetPosition;
+            Debug.Log("Reached target position: " + targetPosition);
+        }
     }
 
     void ThrowFragBomb()
     {
-        if (fragBombPrefab == null) return;
+        if (fragBombPrefab == null)
+        {
+            Debug.LogWarning("Frag bomb prefab is not assigned!");
+            return;
+        }
 
-        Vector3 bombPosition = bombPositionTransform != null ?
-            bombPositionTransform.position : transform.position;
+        Vector3 bombPos = transform.position; // Use current position after moving
+        GameObject fragBomb = Instantiate(fragBombPrefab, bombPos, Quaternion.identity);
 
-        GameObject fragBomb = Instantiate(fragBombPrefab, bombPosition, Quaternion.identity);
+        // Try to find FragBomb component or any component with Explode method
         FragBomb bombScript = fragBomb.GetComponent<FragBomb>();
-
         if (bombScript != null)
         {
             bombScript.Explode(); // Assuming the FragBomb script handles fragment spawning
+        }
+        else
+        {
+            Debug.LogWarning("FragBomb component not found on the instantiated prefab!");
         }
     }
 
     IEnumerator ZigZagShooting(float duration)
     {
         float elapsedTime = 0f;
-        Vector3 zigZagCenter = zigZagPositionTransform != null ?
-            zigZagPositionTransform.position : transform.position;
+        Vector3 zigZagCenter = zigZagPosition.GetPosition(transform);
 
-        // Move to zigzag position first if specified
-        if (zigZagPositionTransform != null)
-        {
-            yield return StartCoroutine(MoveToPosition(zigZagCenter, 1f));
-        }
+        // Move to zigzag position first
+        Debug.Log("Moving to zigzag center position: " + zigZagCenter);
+        yield return StartCoroutine(MoveToPosition(zigZagCenter, 1f));
 
-        while (elapsedTime < duration)
+        while (elapsedTime < duration && isActive)
         {
             float zigZagOffset = Mathf.Sin(Time.time * zigZagFrequency) * zigZagAmplitude;
             Vector3 newPosition = zigZagCenter + new Vector3(zigZagOffset, 0, 0);
@@ -304,44 +384,68 @@ public class PoliceCarEnemy : MonoBehaviour
     // For visual debugging in the editor
     void OnDrawGizmos()
     {
+        // Only run these calculations in editor mode to avoid overhead
+        Vector3 startPos = Application.isPlaying ? cachedStartPosition : startPosition.GetPosition(transform);
+        Vector3 leftPos = Application.isPlaying ? cachedLeftBoundary : leftBoundary.GetPosition(transform);
+        Vector3 rightPos = Application.isPlaying ? cachedRightBoundary : rightBoundary.GetPosition(transform);
+        Vector3 bombPos = bombPosition.GetPosition(transform);
+        Vector3 zigPos = zigZagPosition.GetPosition(transform);
+
         // Draw start position
-        if (startPositionTransform != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(startPositionTransform.position, 0.5f);
-        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(startPos, 0.5f);
+        Gizmos.DrawLine(startPos, startPos + Vector3.up * 1.5f);
 
         // Draw bounds
-        if (leftBoundTransform != null && rightBoundTransform != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(leftBoundTransform.position, rightBoundTransform.position);
-            Gizmos.DrawSphere(leftBoundTransform.position, 0.3f);
-            Gizmos.DrawSphere(rightBoundTransform.position, 0.3f);
-        }
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(leftPos, rightPos);
+        Gizmos.DrawSphere(leftPos, 0.3f);
+        Gizmos.DrawSphere(rightPos, 0.3f);
 
         // Draw bomb position
-        if (bombPositionTransform != null)
+        if (bombPosition.positionType == PositionConfig.PositionType.UseVector3 ||
+            (bombPosition.positionType == PositionConfig.PositionType.UseTransform && bombPosition.targetTransform != null))
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(bombPositionTransform.position, 0.4f);
+            Gizmos.DrawSphere(bombPos, 0.4f);
+            Gizmos.DrawLine(bombPos, bombPos + Vector3.up * 1f);
         }
 
         // Draw zigzag position
-        if (zigZagPositionTransform != null)
+        if (zigZagPosition.positionType == PositionConfig.PositionType.UseVector3 ||
+            (zigZagPosition.positionType == PositionConfig.PositionType.UseTransform && zigZagPosition.targetTransform != null))
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(zigZagPositionTransform.position, 0.4f);
+            Gizmos.DrawSphere(zigPos, 0.4f);
 
             // Draw zigzag pattern
             Gizmos.color = new Color(0.5f, 0.5f, 1f, 0.3f);
-            Vector3 lastPos = zigZagPositionTransform.position - new Vector3(zigZagAmplitude, 0, 0);
+            Vector3 lastPos = zigPos - new Vector3(zigZagAmplitude, 0, 0);
             for (float t = 0; t <= 2 * Mathf.PI; t += 0.1f)
             {
                 float xOffset = Mathf.Sin(t) * zigZagAmplitude;
-                Vector3 newPos = zigZagPositionTransform.position + new Vector3(xOffset, 0, 0);
+                Vector3 newPos = zigPos + new Vector3(xOffset, 0, 0);
                 Gizmos.DrawLine(lastPos, newPos);
                 lastPos = newPos;
+            }
+        }
+
+        // Draw action sequence positions if any
+        if (!Application.isPlaying)
+        {
+            int index = 0;
+            foreach (EnemyAction action in actionSequence)
+            {
+                if (action.actionType == ActionType.MoveToPosition)
+                {
+                    Vector3 actionPos = action.targetPosition.GetPosition(transform);
+                    Gizmos.color = new Color(1f, 0.5f, 0f); // Orange
+                    Gizmos.DrawSphere(actionPos, 0.35f);
+
+                    // Draw index number
+                    Handles.Label(actionPos + Vector3.up * 0.5f, "Action " + index);
+                }
+                index++;
             }
         }
     }
