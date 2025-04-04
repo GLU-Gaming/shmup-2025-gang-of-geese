@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f87aa5d392dd443b07884468cf8eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletLifetime: 10
+  bulletSpeed: 12
+  bulletLifetime: 5
 --- !u!95 &6852424114344115582
 Animator:
   serializedVersion: 7
@@ -506,8 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f87aa5d392dd443b07884468cf8eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletLifetime: 10
+  bulletSpeed: 12
+  bulletLifetime: 5
 --- !u!95 &1362802111750011080
 Animator:
   serializedVersion: 7
@@ -770,8 +770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f87aa5d392dd443b07884468cf8eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletLifetime: 10
+  bulletSpeed: 12
+  bulletLifetime: 5
 --- !u!95 &1127781138926328899
 Animator:
   serializedVersion: 7
@@ -1036,8 +1036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f87aa5d392dd443b07884468cf8eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletLifetime: 10
+  bulletSpeed: 12
+  bulletLifetime: 5
 --- !u!95 &6078960928523619850
 Animator:
   serializedVersion: 7
