@@ -238,11 +238,27 @@ MonoBehaviour:
   shootInterval: 1
   bulletSpeed: 10
   bulletLifetime: 5
-  startPositionTransform: {fileID: 0}
-  leftBoundTransform: {fileID: 0}
-  rightBoundTransform: {fileID: 0}
-  bombPositionTransform: {fileID: 0}
-  zigZagPositionTransform: {fileID: 0}
+  activateOnStart: 1
+  startPosition:
+    positionType: 1
+    targetTransform: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+  leftBoundary:
+    positionType: 1
+    targetTransform: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+  rightBoundary:
+    positionType: 1
+    targetTransform: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+  bombPosition:
+    positionType: 1
+    targetTransform: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+  zigZagPosition:
+    positionType: 1
+    targetTransform: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
   actionSequence: []
 --- !u!1001 &3241407654621740505
 PrefabInstance:
