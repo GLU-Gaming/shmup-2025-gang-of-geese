@@ -3,6 +3,8 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     public float xRange = 5f;
+    public float zRange = 5f;
+    public float zRange2 = 5f;
     public float horizontalSpeed = 5f;
 
     [Header("Car Specifications")]
@@ -127,6 +129,7 @@ public class movement : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.x = Mathf.Clamp(position.x, -xRange, xRange);
+        position.z = Mathf.Clamp(position.z, -zRange2, zRange);
         transform.position = position;
     }
 
