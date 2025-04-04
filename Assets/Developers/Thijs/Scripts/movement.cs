@@ -15,6 +15,7 @@ public class movement : MonoBehaviour
 
     private Rigidbody rb;
     private float accelerationInput;
+    private float verticalInput;
     private float horizontalInput;
     private float currentBrakeForce;
     private bool isReversing = false;
@@ -42,7 +43,7 @@ public class movement : MonoBehaviour
     void Update()
     {
         GetInput();
-        //Debug.Log($"Speed Multiplier: {currentSpeedMultiplier}, Current Speed: {rb.linearVelocity.magnitude}");ws
+        //Debug.Log($"Speed Multiplier: {currentSpeedMultiplier}, Current Speed: {rb.linearVelocity.magnitude}");
     }
 
     private void FixedUpdate()
@@ -55,25 +56,35 @@ public class movement : MonoBehaviour
     void GetInput()
     {
         horizontalInput = 0f;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        verticalInput = 0f;
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            horizontalInput = 1f;
+            verticalInput = -1f;
         }
-        else if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            verticalInput = 1f;
+        }
+
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             horizontalInput = -1f;
+        }
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        {
+            horizontalInput = 1f;
         }
 
         accelerationInput = 0f;
         currentBrakeForce = 0f;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             currentSpeedMultiplier += 0.05f;
             currentSpeedMultiplier = Mathf.Clamp(currentSpeedMultiplier, 0.5f, 2.0f);
             accelerationInput = 1f;
         }
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             currentSpeedMultiplier -= 0.05f;
             currentSpeedMultiplier = Mathf.Clamp(currentSpeedMultiplier, 0.5f, 2.0f);
@@ -85,6 +96,8 @@ public class movement : MonoBehaviour
         }
     }
 
+
+
     private void HandleHorizontalMovement()
     {
         if (horizontalInput != 0)
@@ -95,6 +108,17 @@ public class movement : MonoBehaviour
             Vector3 velocityChange = targetVelocity - currentVelocity;
             velocityChange.y = 0;
             velocityChange.z = 0;
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        }
+
+        if (verticalInput != 0)
+        {
+            Vector3 verticalVelocity = Vector3.forward * verticalInput * horizontalSpeed;
+            Vector3 currentVelocity = rb.linearVelocity;
+            Vector3 targetVelocity = new Vector3(currentVelocity.x, currentVelocity.y, verticalVelocity.z);
+            Vector3 velocityChange = targetVelocity - currentVelocity;
+            velocityChange.y = 0;
+            velocityChange.x = 0;
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
     }
@@ -119,6 +143,4 @@ public class movement : MonoBehaviour
             rb.AddForce(-brakeVelocity * 2);
         }
     }
-
-   
 }
