@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class PoliceSwatCarEnemy : MonoBehaviour
 {
@@ -443,7 +442,7 @@ public class PoliceSwatCarEnemy : MonoBehaviour
                     Gizmos.DrawSphere(actionPos, 0.35f);
 
                     // Draw index number
-                    Handles.Label(actionPos + Vector3.up * 0.5f, "Action " + index);
+                    //Handles.Label(actionPos + Vector3.up * 0.5f, "Action " + index);
                 }
                 index++;
             }
