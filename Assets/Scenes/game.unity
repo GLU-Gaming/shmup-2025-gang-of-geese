@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 414456612}
   - component: {fileID: 414456611}
   m_Layer: 3
-  m_Name: GooseVan script ding
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
