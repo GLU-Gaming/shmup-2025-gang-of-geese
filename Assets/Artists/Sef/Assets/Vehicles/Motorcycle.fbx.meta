@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 41ebd942f1ada7547ad735aa9723df27
+guid: 9d2544f2272cadc479253b62c7ab496f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fox
+    second: {fileID: 2100000, guid: 98654c5afac87fb47aafaf71042e35d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Motorcycle
+    second: {fileID: 2100000, guid: 3028fba173084a8499bb6624fecf3a86, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
