@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPrefabs:
-  - {fileID: 9137389739507403295, guid: 353d81ecccc6b0a4a9c35f1b4520d9fe, type: 3}
+  - {fileID: 7894354358212461230, guid: 990e81ce37f02aa49b87303bcfb27324, type: 3}
   spawnWeights: 00000000
   numberOfRoads: 7
   roadLength: 20
