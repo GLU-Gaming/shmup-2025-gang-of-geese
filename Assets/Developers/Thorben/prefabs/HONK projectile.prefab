@@ -228,8 +228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5933027, y: 2.1714816, z: 1}
-  m_Center: {x: 0.21047473, y: 0.26959306, z: 0}
+  m_Size: {x: 7.6533127, y: 2.1714816, z: 1}
+  m_Center: {x: -2.9539728, y: 0.26959306, z: 0}
 --- !u!114 &5070191608432106526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,8 +492,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5933027, y: 2.1714816, z: 1}
-  m_Center: {x: 0.21047473, y: 0.26959306, z: 0}
+  m_Size: {x: 6.97414, y: 2.1714816, z: 1}
+  m_Center: {x: 0.5200565, y: 0.26959306, z: 0}
 --- !u!114 &8638941278278759316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,8 +756,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5933027, y: 2.1714816, z: 1}
-  m_Center: {x: 0.21047473, y: 0.26959306, z: 0}
+  m_Size: {x: 7.689906, y: 2.1714816, z: 1}
+  m_Center: {x: -1.2224073, y: 0.26959306, z: 0}
 --- !u!114 &449006971345291632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,8 +1022,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5933027, y: 2.1714816, z: 1}
-  m_Center: {x: 0.21047473, y: 0.26959306, z: 0}
+  m_Size: {x: 7.935729, y: 2.1714816, z: 1}
+  m_Center: {x: 2.8151274, y: 0.26959306, z: 0}
 --- !u!114 &8485861295125908473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 5.1871576, y: 0, z: 5.685648, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -1287,10 +1287,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 7.5933027, y: 2.1714816, z: 1}
-  m_Center: {x: 0.21047473, y: 0.26959306, z: 0}
+  m_Size: {x: 7.435899, y: 2.1714816, z: 1}
+  m_Center: {x: -0.3065847, y: 0.26959306, z: 0}
 --- !u!114 &-1850371821307242920
 MonoBehaviour:
   m_ObjectHideFlags: 0
