@@ -79,9 +79,12 @@ public class enemyspawner : MonoBehaviour
                     yield return new WaitForSeconds(waveSequence.spawnDelay);
                 }
 
-                Debug.Log("Wave Completed! Waiting before next wave...");
-                yield return new WaitForSeconds(2f); // Wait between waves
+                //Debug.Log("Wave Completed! Waiting before next wave...");
+                //yield return new WaitForSeconds(2f); // Wait between waves
             }
+
+            //zolang de enemies nog leven
+                //wacht
 
             currentSequenceIndex++;
             Debug.Log("Wave Sequence Completed! Waiting before next sequence...");

@@ -3614,6 +3614,7 @@ MonoBehaviour:
   waveSequences:
   - waveName: 
     enemyPrefabs:
+    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     spawnDelay: 1
