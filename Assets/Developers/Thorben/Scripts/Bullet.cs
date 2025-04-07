@@ -25,15 +25,15 @@ public class Bullet : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rb != null)
-        {
-            // Normalize the velocity to maintain consistent speed
-            Vector3 currentVelocity = rb.linearVelocity;
-            Vector3 desiredVelocity = -transform.right * bulletSpeed;
+        //if (rb != null)
+        //{
+        //    // Normalize the velocity to maintain consistent speed
+        //    Vector3 currentVelocity = rb.linearVelocity;
+        //    Vector3 desiredVelocity = -transform.right * bulletSpeed;
 
-            // Smoothly correct the velocity
-            rb.linearVelocity = Vector3.Lerp(currentVelocity, desiredVelocity, Time.fixedDeltaTime * 10f);
-        }
+        //    // Smoothly correct the velocity
+        //    rb.linearVelocity = Vector3.Lerp(currentVelocity, desiredVelocity, Time.fixedDeltaTime * 10f);
+        //}
     }
 
     void OnCollisionEnter(Collision collision)
