@@ -3993,15 +3993,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313729c98b22b2b488bc125074e1c113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
-  - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
-  spawnChances: 4b00000019000000
+  waveSequences:
+  - waveName: 
+    enemyPrefabs:
+    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
+    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
+    spawnDelay: 1
+    isBossWave: 0
   spawnArea: {fileID: 1939133189}
-  minSpawnDelay: 1
-  maxSpawnDelay: 2
-  enemiesPerWave: 4
-  totalWaves: 3
   spawnOffset: 0
   fixedYPosition: 0
   showSpawnAreaGizmos: 1
