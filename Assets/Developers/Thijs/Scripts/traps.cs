@@ -62,7 +62,7 @@ public class traps : MonoBehaviour
     }
 }
 
-public class TrapSpawner : MonoBehaviour
+public class TrapSpawner1 : MonoBehaviour
 {
     private hpsystem playerHpSystem;
     public GameObject trapPrefab;
