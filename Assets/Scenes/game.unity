@@ -1162,6 +1162,7 @@ GameObject:
   - component: {fileID: 399373849}
   - component: {fileID: 399373852}
   - component: {fileID: 399373853}
+  - component: {fileID: 399373854}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1299,6 +1300,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e8efecec230c242bbbf9a43ea5bbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &399373854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399373848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbed6c2888dc68b4087397695e400bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &406650364 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7203150233191044729, guid: 509fc3e4e0c8be549b14869a6423ac18, type: 3}
@@ -1340,11 +1353,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7638105227912051063, guid: 81fe9c777f623874294c7a8c1c790bc1, type: 3}
   bulletSpawnPoint: {fileID: 406650364}
-  bulletSpeed: 15
+  bulletSpeed: 17
   bulletLifetime: 5
   spreadAngleDegrees: 30
   spreadBulletCount: 5
-  honk: {fileID: 0}
+  honk: {fileID: 8300000, guid: 2d2e90d829e55884d902b74a2718a04e, type: 3}
 --- !u!54 &414456612
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4788,7 +4801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5478164449236724105, guid: 9d5aeeeed2f8cff40ad6da47f79cb550, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.8501148
+      value: -15.23
       objectReference: {fileID: 0}
     - target: {fileID: 5478164449236724105, guid: 9d5aeeeed2f8cff40ad6da47f79cb550, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4846,6 +4859,10 @@ PrefabInstance:
     - target: {fileID: 3036324337138563368, guid: 53aede8487261824cbcd5e540166d7b3, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3036324337138563368, guid: 53aede8487261824cbcd5e540166d7b3, type: 3}
+      propertyPath: m_DynamicPixelsPerUnit
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4899035133163066122, guid: 53aede8487261824cbcd5e540166d7b3, type: 3}
       propertyPath: m_Pivot.x
