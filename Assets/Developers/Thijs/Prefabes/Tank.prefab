@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8299168876552866260}
   - component: {fileID: 3613964570647808746}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: area indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,9 +188,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c583f056b0c7822469886104eded06f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6479877438166647474}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c583f056b0c7822469886104eded06f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2288555552190110240}
   m_SourcePrefab: {fileID: 100100000, guid: c583f056b0c7822469886104eded06f9, type: 3}
 --- !u!4 &3489764055850530748 stripped
 Transform:
@@ -216,19 +213,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1000
   currentHealth: 0
-  phase2HealthThreshold: 650
-  phase3HealthThreshold: 300
-  playerTransform: {fileID: 0}
-  moveCloserDistance: 5
   moveSpeed: 2
-  phaseCooldowns:
-  - 3
-  - 2
-  - 1.5
-  attackDamage: 20
-  phaseTransitionEffect: {fileID: 0}
-  areaIndicator: {fileID: 8207379884198710361}
+  rotationSpeed: 5
+  bulletPrefab: {fileID: 0}
+  bulletSpawnPoint: {fileID: 0}
+  bulletSpeed: 10
+  attackInterval: 2
+  explosionRadius: 5
   explosionEffect: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  healthBarPrefab: {fileID: 0}
+  healthBarOffset: {fileID: 0}
 --- !u!114 &1177350397971737204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,15 +280,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &2288555552190110240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4262077912982088966}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01071b36e84df904f980d930b057f423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
