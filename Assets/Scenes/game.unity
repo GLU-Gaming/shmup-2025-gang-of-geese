@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1841,6 +1841,18 @@ PrefabInstance:
     - target: {fileID: 585620818431808883, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 617544894075054571, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617544894075054571, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 617544894075054571, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1420906684047239131, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2266,7 +2278,7 @@ RectTransform:
   m_GameObject: {fileID: 755216329}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 2.5, z: 2}
+  m_LocalScale: {x: 7.4416547, y: 4.651034, z: 3.7208273}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2105259184}
@@ -2274,7 +2286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 355, y: -206}
+  m_AnchoredPosition: {x: 848, y: -482}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755216331
@@ -3710,6 +3722,7 @@ MonoBehaviour:
   waveSequences:
   - waveName: 
     enemyPrefabs:
+    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     spawnDelay: 1
@@ -3961,6 +3974,18 @@ PrefabInstance:
     - target: {fileID: 613058945616117125, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371769340301185263, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371769340301185263, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 1371769340301185263, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1386452793613724233, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
       propertyPath: m_Name

@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class enemy : MonoBehaviour
+public class MotorEnemy : MonoBehaviour
 {
+    private hpsystem playerhpsystem;
+    [Header("Target Settings")]
+    public Transform player;
+    public bool autoFindPlayer = true;
+    public string playerTag = "Player";
+
+    [Header("Prefabs")]
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
-    public float bulletSpeed = 10f;
-    public float shootInterval = 2f;
+
+    [Header("Movement Settings")]
     public float forwardSpeed = 1f;
     public float sideSpeed = 2f;
     public float maxLeftDistance = 5f;
@@ -16,10 +23,13 @@ public class enemy : MonoBehaviour
     public float randomMovementInterval = 3f;
     public float targetingDelay = 8f;
     public LayerMask obstacleLayer;
-    public Transform player;
 
-    // Reference to the HP system
-    private hpsystem playerHpSystem;
+    [Header("Attack Settings")]
+    public float shootInterval = 0.5f; // Faster shooting interval
+    public float bulletSpeed = 15f; // Faster bullet speed
+    public float bulletLifetime = 5f;
+
+    private bool isActive = false;
     private Vector3 startPosition;
     private bool movingRight = true;
     private bool isObstacleAhead = false;
@@ -29,22 +39,26 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+        playerhpsystem = FindFirstObjectByType<hpsystem>();
         startPosition = transform.position;
         lastRandomMoveTime = Time.time;
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        // Find the HP system component
-        playerHpSystem = Object.FindFirstObjectByType<hpsystem>();
-        if (playerHpSystem == null)
+        // Find player if needed
+        if (player == null && autoFindPlayer)
         {
-            Debug.LogError("No HP system found in the scene!");
-        }
-        if (bulletSpawnPoint != null)
-        {
-            StartCoroutine(ShootBullet());
+            GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+            else
+            {
+                Debug.LogError("Player not found! Make sure the Player object has the '" + playerTag + "' tag or assign it directly.");
+            }
         }
 
+        // Activate the enemy
+        Activate();
     }
 
     void Update()
@@ -137,37 +151,54 @@ public class enemy : MonoBehaviour
         isTargeting = false;
     }
 
-    IEnumerator ShootBullet()
+    void Activate()
     {
-        while (true)
+        if (!isActive)
         {
-            yield return new WaitForSeconds(shootInterval);
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-
-            if (rb != null)
-            {
-                rb.linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
-            }
-
-            // Add a component to handle collision and destruction
-            BulletCollisionHandler1 collisionHandler = bullet.AddComponent<BulletCollisionHandler1>();
-            collisionHandler.playerHpSystemInstance = playerHpSystem;  // Pass the reference
-            Destroy(bullet, 5f);
+            isActive = true;
+            StartCoroutine(ShootBullets());
+            Debug.Log("Motor enemy activated and shooting faster!");
         }
     }
 
-
-    void OnDrawGizmos()
+    IEnumerator ShootBullets()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.up * obstacleCheckDistance);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(new Vector3(startPosition.x - maxLeftDistance, transform.position.y, transform.position.z),
-                        new Vector3(startPosition.x + maxRightDistance, transform.position.y, transform.position.z));
+        while (isActive)
+        {
+            ShootBullet();
+            yield return new WaitForSeconds(shootInterval);
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void ShootBullet()
+    {
+        if (bulletPrefab == null)
+        {
+            Debug.LogWarning("Bullet prefab is not assigned!");
+            return;
+        }
+
+        // Use bulletSpawnPoint if available, otherwise use enemy position
+        Vector3 spawnPosition = bulletSpawnPoint != null ?
+            bulletSpawnPoint.position : transform.position;
+
+        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        if (bulletRb != null)
+        {
+            // Shoot along the z-axis
+            bulletRb.linearVelocity = transform.forward * bulletSpeed;
+        }
+
+        // Add a component to handle collision and destruction
+        BulletCollisionHandler collisionHandler = bullet.AddComponent<BulletCollisionHandler>();
+        collisionHandler.playerHpSystem = playerhpsystem;  // Pass the reference
+
+        Destroy(bullet, bulletLifetime);
+    }
+
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -180,18 +211,18 @@ public class enemy : MonoBehaviour
     }
 }
 
-public class BulletCollisionHandler1 : MonoBehaviour
+public class BulletCollisionHandler : MonoBehaviour
 {
-    public hpsystem playerHpSystemInstance;
+    public hpsystem playerHpSystem;
 
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             // Apply damage to the player
-            if (playerHpSystemInstance != null)
+            if (playerHpSystem != null)
             {
-                playerHpSystemInstance.TakeDamage();
+                playerHpSystem.TakeDamage();
             }
             else
             {
@@ -208,5 +239,3 @@ public class BulletCollisionHandler1 : MonoBehaviour
         }
     }
 }
-
-
