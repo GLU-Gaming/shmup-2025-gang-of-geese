@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPrefabs:
-  - {fileID: 7894354358212461230, guid: 990e81ce37f02aa49b87303bcfb27324, type: 3}
+  - {fileID: 4502429144848935191, guid: 1f7c37e1fc181aa41a19c06d3eac8445, type: 3}
   spawnWeights: 00000000
   numberOfRoads: 7
   roadLength: 20
@@ -3286,7 +3286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1613858337
 MonoBehaviour:
   m_ObjectHideFlags: 0
