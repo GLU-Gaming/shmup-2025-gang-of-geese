@@ -27,6 +27,18 @@ public class Playershoot : MonoBehaviour
     }
     private WeaponMode currentMode = WeaponMode.Normal;
 
+    // Audio variables
+    [Header("Audio Settings")]
+    public AudioClip honk; // Assign your MP3 file here
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        // Initialize the AudioSource component
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+    }
+
     void Update()
     {
         // Switch weapon modes
@@ -75,11 +87,14 @@ public class Playershoot : MonoBehaviour
 
     void Shoot()
     {
+        Playhonk();
         CreateBullet(bulletSpawnPoint.position, bulletSpawnPoint.rotation, 1f);
     }
 
     void ShootSpread()
     {
+        Playhonk();
+
         // Calculate the angle between each bullet in the spread
         float angleStep = spreadAngleDegrees * 2 / (spreadBulletCount - 1);
 
@@ -106,6 +121,8 @@ public class Playershoot : MonoBehaviour
     void ReleaseChargeShot()
     {
         if (!isCharging) return;
+
+        Playhonk();
 
         // Calculate charge duration
         float chargeDuration = Mathf.Clamp(Time.time - chargeStartTime, 0f, MAX_CHARGE_TIME);
@@ -142,5 +159,14 @@ public class Playershoot : MonoBehaviour
         bullet.transform.Rotate(0, 270, 0);
 
         return bullet;
+    }
+
+    void Playhonk()
+    {
+        if (honk != null && audioSource != null)
+        {
+            audioSource.clip = honk;
+            audioSource.Play();
+        }
     }
 }

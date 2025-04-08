@@ -84,7 +84,12 @@ public class enemyspawner : MonoBehaviour
             }
 
             //zolang de enemies nog leven
-                //wacht
+            //wacht
+            while (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+            {
+                yield return null; // Wait for the next frame
+            }
+
 
             currentSequenceIndex++;
             Debug.Log("Wave Sequence Completed! Waiting before next sequence...");
