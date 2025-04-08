@@ -3286,7 +3286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1613858337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3722,8 +3722,8 @@ MonoBehaviour:
   waveSequences:
   - waveName: 
     enemyPrefabs:
-    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
+    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
     - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
     - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     spawnDelay: 1
@@ -3776,16 +3776,6 @@ MonoBehaviour:
     isBossWave: 0
   - waveName: 
     enemyPrefabs:
-    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
-    - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
-    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
-    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
-    - {fileID: 3833159613306547471, guid: 111700617af9cf742961419bec448365, type: 3}
-    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
-    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
-    - {fileID: 7018616732749253007, guid: c92ffce30657d65488fe86ed6ee8dca2, type: 3}
-    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
-    - {fileID: 6254705311003340220, guid: ea3d28479d5d27f4cb0218314b1666da, type: 3}
     - {fileID: 4262077912982088966, guid: 75efb274b225de54faaba73618cd38df, type: 3}
     spawnDelay: 1
     isBossWave: 1
