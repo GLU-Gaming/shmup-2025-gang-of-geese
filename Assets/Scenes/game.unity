@@ -1071,6 +1071,7 @@ MonoBehaviour:
   bulletLifetime: 5
   spreadAngleDegrees: 30
   spreadBulletCount: 5
+  honk: {fileID: 0}
 --- !u!1 &392762633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6093057763811199594, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
@@ -1343,6 +1344,7 @@ MonoBehaviour:
   bulletLifetime: 5
   spreadAngleDegrees: 30
   spreadBulletCount: 5
+  honk: {fileID: 0}
 --- !u!54 &414456612
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1928,7 +1930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2096632609850245254, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2248381534935411012, guid: b51429223f0b7fe4d80cd9ac7142a4f9, type: 3}
       propertyPath: m_LocalScale.y
