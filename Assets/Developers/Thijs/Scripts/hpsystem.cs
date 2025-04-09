@@ -71,7 +71,9 @@ public class hpsystem : MonoBehaviour
         {
             scoreSystem.SetFinalScore();
         }
-        SceneManager.LoadScene(2);
+        Utilities utils = FindFirstObjectByType<Utilities>();
+        utils.GoToGameOver();        
+        //SceneManager.LoadScene(2);
         Debug.Log("Player has died! Game Over!");
     }
 
