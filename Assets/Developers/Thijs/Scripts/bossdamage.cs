@@ -3,21 +3,19 @@ using UnityEngine;
 public class bossdamage : MonoBehaviour
 {
 
-    
+    public hpsystem playerHpSystemInstance;
+     
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        playerHpSystemInstance = FindAnyObjectByType<hpsystem>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
 
-    public hpsystem playerHpSystemInstance;
 
      void OnCollisionEnter(Collision collision)
     {
