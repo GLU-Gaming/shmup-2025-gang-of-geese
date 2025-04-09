@@ -587,7 +587,7 @@ RectTransform:
   m_GameObject: {fileID: 173441675}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8, y: 2.8, z: 2.8}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 2.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 283806413}
@@ -595,7 +595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126, y: -438}
+  m_AnchoredPosition: {x: 794.5, y: 484.2}
   m_SizeDelta: {x: 166.9029, y: 42.8626}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &173441677
@@ -935,7 +935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Controls
+  m_text: Credits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8b4981ab727e5854cba2379703bfad89, type: 2}
   m_sharedMaterial: {fileID: 1852767413883667331, guid: 8b4981ab727e5854cba2379703bfad89, type: 2}
