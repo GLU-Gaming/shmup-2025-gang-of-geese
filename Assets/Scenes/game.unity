@@ -1361,7 +1361,7 @@ MonoBehaviour:
   spreadAngleDegrees: 30
   spreadBulletCount: 5
   honk: {fileID: 8300000, guid: 2d2e90d829e55884d902b74a2718a04e, type: 3}
-  normalShotDelay: 0.5
+  normalShotDelay: 0.25
   spreadShotDelay: 1
   chargeShotDelay: 1.5
 --- !u!54 &414456612
