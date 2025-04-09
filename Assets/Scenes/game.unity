@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPrefabs:
-  - {fileID: 4547234845829762055, guid: 71d1daf4f2500bb47bfcf227935883b0, type: 3}
+  - {fileID: 526005665147777523, guid: e42703576306fb2439ad1bf644fc90ee, type: 3}
   spawnWeights: 00000000
   numberOfRoads: 2
   roadLength: 75
@@ -1072,6 +1072,9 @@ MonoBehaviour:
   spreadAngleDegrees: 30
   spreadBulletCount: 5
   honk: {fileID: 0}
+  normalShotDelay: 0.5
+  spreadShotDelay: 1
+  chargeShotDelay: 1.5
 --- !u!1 &392762633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6093057763811199594, guid: 5c5a2b22c303ba244a604cf3ff0b590a, type: 3}
@@ -1358,6 +1361,9 @@ MonoBehaviour:
   spreadAngleDegrees: 30
   spreadBulletCount: 5
   honk: {fileID: 8300000, guid: 2d2e90d829e55884d902b74a2718a04e, type: 3}
+  normalShotDelay: 0.5
+  spreadShotDelay: 1
+  chargeShotDelay: 1.5
 --- !u!54 &414456612
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -32,6 +32,13 @@ public class Playershoot : MonoBehaviour
     public AudioClip honk; // Assign your MP3 file here
     private AudioSource audioSource;
 
+    // Shooting delay variables
+    [Header("Shooting Delay Settings")]
+    public float normalShotDelay = 0.5f; // Delay for Normal mode
+    public float spreadShotDelay = 1f; // Delay for SpreadShot mode
+    public float chargeShotDelay = 1.5f; // Delay for ChargeShot mode
+    private float lastShotTime = 0f;
+
     void Start()
     {
         // Initialize the AudioSource component
@@ -59,7 +66,7 @@ public class Playershoot : MonoBehaviour
         }
 
         // Shooting mechanics
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0)) && CanShoot())
         {
             switch (currentMode)
             {
@@ -83,6 +90,33 @@ public class Playershoot : MonoBehaviour
                 ReleaseChargeShot();
             }
         }
+    }
+
+    bool CanShoot()
+    {
+        float currentDelay = 0f;
+
+        // Determine the delay based on the current weapon mode
+        switch (currentMode)
+        {
+            case WeaponMode.Normal:
+                currentDelay = normalShotDelay;
+                break;
+            case WeaponMode.SpreadShot:
+                currentDelay = spreadShotDelay;
+                break;
+            case WeaponMode.ChargeShot:
+                currentDelay = chargeShotDelay;
+                break;
+        }
+
+        // Check if enough time has passed since the last shot
+        if (Time.time - lastShotTime >= currentDelay)
+        {
+            lastShotTime = Time.time; // Update the last shot time
+            return true;
+        }
+        return false;
     }
 
     void Shoot()
