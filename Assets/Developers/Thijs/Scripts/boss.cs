@@ -366,6 +366,7 @@ public class Boss : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
+
             TakeDamage(10f);
             Destroy(collision.gameObject);
         }
