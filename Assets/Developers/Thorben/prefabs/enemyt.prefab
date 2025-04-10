@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2046256958196621955}
   - component: {fileID: 5513795805438385544}
   - component: {fileID: 7636079743181686423}
+  - component: {fileID: 2090873629883835332}
   m_Layer: 6
   m_Name: enemyt
   m_TagString: Enemy
@@ -138,7 +139,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 124
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &2046256958196621955
 MonoBehaviour:
@@ -196,6 +197,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ramSpeed: 5
   ramCooldown: 5
+--- !u!114 &2090873629883835332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3833159613306547471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b823d3111189f14cbeef97b151a47d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6704654042972453615
 PrefabInstance:
   m_ObjectHideFlags: 0

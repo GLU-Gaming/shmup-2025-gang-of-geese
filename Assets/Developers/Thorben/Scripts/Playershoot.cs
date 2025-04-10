@@ -18,6 +18,7 @@ public class Playershoot : MonoBehaviour
     private bool isCharging = false;
     private const float MAX_CHARGE_TIME = 1f; // Maximum charge time in seconds
     private const float MAX_SCALE_MULTIPLIER = 3f;
+    private const float MAX_VOLUME_MULTIPLIER = 1.0f; // Maximum volume for fully charged shots
 
     // Weapon modes
     private enum WeaponMode
@@ -32,6 +33,13 @@ public class Playershoot : MonoBehaviour
     [Header("Audio Settings")]
     public AudioClip honk; // Assign your MP3 file here
     private AudioSource audioSource;
+    public float baseVolume = 0.3f; // Base volume for normal shots
+    public float maxVolume = 1.0f; // Maximum volume for fully charged shots
+    public float basePitch = 1.0f; // Normal pitch
+    public float maxPitch = 0.6f; // Lower pitch for charged shots (bass boost effect)
+    // Sound distortion settings for charged shots
+    public bool applyDistortion = true; // Toggle for distortion effect
+    private AudioSource distortionSource; // Second audio source for layered sound
 
     // Shooting delay variables
     [Header("Shooting Delay Settings")]
@@ -48,9 +56,15 @@ public class Playershoot : MonoBehaviour
 
     void Start()
     {
-        // Initialize the AudioSource component
+        // Initialize the main AudioSource component
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
+        audioSource.volume = baseVolume;
+
+        // Initialize the second AudioSource for layered sound effect
+        distortionSource = gameObject.AddComponent<AudioSource>();
+        distortionSource.playOnAwake = false;
+        distortionSource.volume = 0;
 
         // Set initial UI state
         UpdateUIElements();
@@ -165,13 +179,13 @@ public class Playershoot : MonoBehaviour
 
     void Shoot()
     {
-        Playhonk();
+        PlayAmplifiedHonk(0); // Play at base level (no amplification)
         CreateBullet(bulletSpawnPoint.position, bulletSpawnPoint.rotation, 1f);
     }
 
     void ShootSpread()
     {
-        Playhonk();
+        PlayAmplifiedHonk(0); // Play at base level (no amplification)
 
         // Calculate the angle between each bullet in the spread
         float angleStep = spreadAngleDegrees * 2 / (spreadBulletCount - 1);
@@ -200,13 +214,21 @@ public class Playershoot : MonoBehaviour
     {
         if (!isCharging) return;
 
-        Playhonk();
-
         // Calculate charge duration
         float chargeDuration = Mathf.Clamp(Time.time - chargeStartTime, 0f, MAX_CHARGE_TIME);
 
+        // Calculate charge percentage (0 to 1)
+        float chargePercentage = chargeDuration / MAX_CHARGE_TIME;
+
         // Calculate scale multiplier based on charge time
-        float scaleMultiplier = 1f + (chargeDuration / MAX_CHARGE_TIME) * (MAX_SCALE_MULTIPLIER - 1f);
+        float scaleMultiplier = 1f + chargePercentage * (MAX_SCALE_MULTIPLIER - 1f);
+
+        // Play the honk with amplification based on charge percentage
+        PlayAmplifiedHonk(chargePercentage);
+
+        // Debug information about the charge
+        Debug.Log("Charge Duration: " + chargeDuration + "s, Charge %: " + chargePercentage);
+        Debug.Log("Scale Multiplier: " + scaleMultiplier);
 
         CreateBullet(bulletSpawnPoint.position, bulletSpawnPoint.rotation, scaleMultiplier);
 
@@ -239,12 +261,53 @@ public class Playershoot : MonoBehaviour
         return bullet;
     }
 
-    void Playhonk()
+    // Play the honk with amplification based on charge percentage
+    void PlayAmplifiedHonk(float chargePercentage)
     {
-        if (honk != null && audioSource != null)
+        if (honk == null || audioSource == null) return;
+
+        // Calculate final volume (lerp from base to max)
+        float finalVolume = Mathf.Lerp(baseVolume, maxVolume, chargePercentage);
+
+        // Calculate pitch (lower pitch = more bass)
+        float finalPitch = Mathf.Lerp(basePitch, maxPitch, chargePercentage);
+
+        // Apply volume and pitch to main audio source
+        audioSource.pitch = finalPitch;
+        audioSource.volume = finalVolume;
+        audioSource.clip = honk;
+        audioSource.Play();
+
+        // Apply distortion effect for charged shots by playing a layered sound
+        if (applyDistortion && chargePercentage > 0.5f)
         {
-            audioSource.clip = honk;
-            audioSource.Play();
+            float distortionIntensity = (chargePercentage - 0.5f) * 2; // Scale from 0-1 based on charge over 50%
+
+            // Setup the distortion source
+            distortionSource.clip = honk;
+            // Use an even lower pitch for the distortion layer
+            distortionSource.pitch = finalPitch * 0.8f;
+            // Volume increases with charge
+            distortionSource.volume = distortionIntensity * 0.7f;
+            // Small delay for echo effect
+            distortionSource.PlayDelayed(0.02f);
+
+            Debug.Log("Applied distortion effect with intensity: " + distortionIntensity);
         }
+
+        Debug.Log("Playing amplified honk - Volume: " + finalVolume + ", Pitch: " + finalPitch);
+    }
+
+    // Legacy methods kept for backward compatibility
+    void PlaySpecificHonk(AudioClip clip, float volumeLevel)
+    {
+        audioSource.clip = clip;
+        audioSource.volume = Mathf.Clamp(volumeLevel, 0f, 1f);
+        audioSource.Play();
+    }
+
+    void PlayHonk(float volumeLevel)
+    {
+        PlaySpecificHonk(honk, volumeLevel);
     }
 }
