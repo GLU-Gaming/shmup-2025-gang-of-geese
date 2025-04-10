@@ -106,7 +106,7 @@ MonoBehaviour:
   phase2HealthThreshold: 650
   phase3HealthThreshold: 300
   playerTransform: {fileID: 0}
-  moveCloserDistance: 5
+  moveCloserDistance: 2
   moveSpeed: 2
   phaseCooldowns:
   - 3
