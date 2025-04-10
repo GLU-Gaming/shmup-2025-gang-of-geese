@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 623444299356064672}
   - component: {fileID: 8882575293151971702}
   - component: {fileID: 8160328201472318351}
+  - component: {fileID: 712603797744575700}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -115,6 +116,27 @@ MonoBehaviour:
   phaseTransitionEffect: {fileID: 0}
   areaIndicator: {fileID: 705684889229867979}
   explosionEffect: {fileID: 0}
+--- !u!65 &712603797744575700
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6883869467012211502}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.031796, y: 5.1197047, z: 11.244216}
+  m_Center: {x: 0.0026369134, y: 0.6103275, z: 0.060665805}
 --- !u!1001 &409220097468122987
 PrefabInstance:
   m_ObjectHideFlags: 0

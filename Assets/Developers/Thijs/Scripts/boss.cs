@@ -51,6 +51,7 @@ public class Boss : MonoBehaviour
             PerformAttack();
             attackTimer = phaseCooldowns[currentPhase - 1];
         }
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     private IEnumerator ChangePhase(int newPhase)

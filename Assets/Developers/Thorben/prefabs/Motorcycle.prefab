@@ -149,7 +149,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  shootInterval: 0.5
+  shootInterval: 0.8
   bulletSpeed: 15
   bulletLifetime: 5
 --- !u!54 &-5962114889719738243
