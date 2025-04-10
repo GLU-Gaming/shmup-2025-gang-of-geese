@@ -61,6 +61,8 @@ public class enemy : MonoBehaviour
                 StartCoroutine(TargetPlayer());
             }
         }
+
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     void CheckForObstacles()
