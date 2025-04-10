@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -361,7 +362,18 @@ public class Boss : MonoBehaviour
     private void Die()
     {
         Debug.Log("Boss defeated!");
+        // Ensure ScoreSystem.Instance is properly accessed
+        var scoreSystem = Object.FindFirstObjectByType<ScoreSystem>();
+        if (scoreSystem != null)
+        {
+            scoreSystem.SetFinalScore(); // Finalize the score
+            PlayerPrefs.SetInt("FinalScore", ScoreSystem.finalScore); // Store the finalized score
+            PlayerPrefs.Save();
+        }
+        SceneManager.LoadScene("win screen");
     }
+
+
 
     private void OnCollisionEnter(Collision collision)
     {

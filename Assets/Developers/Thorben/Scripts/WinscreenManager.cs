@@ -1,15 +1,14 @@
 using UnityEngine;
-using TMPro;
+using TMPro; // Import TextMesh Pro namespace
 
-public class WinSceneManager : MonoBehaviour
+public class WinscreenManager : MonoBehaviour
 {
-    public TextMeshProUGUI finalScoreText;
+    [SerializeField] private TextMeshProUGUI scoreText; // Use TextMeshProUGUI instead of Text
 
     void Start()
     {
-        if (finalScoreText != null)
-        {
-            finalScoreText.text = ScoreSystem.finalScore.ToString();
-        }
+        // Retrieve the final score and display it as a number
+        int finalScore = PlayerPrefs.GetInt("FinalScore", 0);
+        scoreText.text = finalScore.ToString(); // Display only the number
     }
 }
