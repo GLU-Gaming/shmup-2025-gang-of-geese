@@ -26,9 +26,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4050664271168632784}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.00000013767877, y: 0.7071068, z: 0.70710677, w: 0.00000013767878}
+  m_LocalPosition: {x: -0, y: 0.23705444, z: 0}
+  m_LocalScale: {x: 45.47616, y: 45.47616, z: 45.47616}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7650756051495654197}
@@ -40,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4050664271168632784}
-  m_Mesh: {fileID: 4627598752705197049, guid: b77e5af45fcfe264f8fa5f55faa549dd, type: 3}
+  m_Mesh: {fileID: 4627598752705197049, guid: 4381da00fd946a249b7d81b6f0e7fa6b, type: 3}
 --- !u!23 &1340121965361569293
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4829657296003483090, guid: b77e5af45fcfe264f8fa5f55faa549dd, type: 3}
+  - {fileID: -4829657296003483090, guid: 4381da00fd946a249b7d81b6f0e7fa6b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,9 +95,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7650756051495654197}
-  - component: {fileID: -4881925713235090316}
-  - component: {fileID: -5962114889719738243}
-  - component: {fileID: -3527382103598862023}
+  - component: {fileID: 7888809127003242949}
+  - component: {fileID: -3954713283745076010}
+  - component: {fileID: 948205293766374180}
   m_Layer: 6
   m_Name: Motorcycle
   m_TagString: Enemy
@@ -122,7 +122,7 @@ Transform:
   - {fileID: 3357396633116521220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4881925713235090316
+--- !u!114 &7888809127003242949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,10 +149,10 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  shootInterval: 0.8
+  shootInterval: 0.5
   bulletSpeed: 15
   bulletLifetime: 5
---- !u!54 &-5962114889719738243
+--- !u!54 &-3954713283745076010
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +179,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &-3527382103598862023
+--- !u!65 &948205293766374180
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,9 +226,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7361741511675791034}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.00000013767877, y: 0.7071068, z: 0.70710677, w: 0.00000013767878}
+  m_LocalPosition: {x: -0, y: 0.6145285, z: 0}
+  m_LocalScale: {x: 54.487717, y: 54.487717, z: 54.487717}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7650756051495654197}
@@ -240,7 +240,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7361741511675791034}
-  m_Mesh: {fileID: -5495902117074765545, guid: b77e5af45fcfe264f8fa5f55faa549dd, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: 4381da00fd946a249b7d81b6f0e7fa6b, type: 3}
 --- !u!23 &5955457447101309457
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5726386639439282284, guid: b77e5af45fcfe264f8fa5f55faa549dd, type: 3}
+  - {fileID: -5726386639439282284, guid: 4381da00fd946a249b7d81b6f0e7fa6b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
