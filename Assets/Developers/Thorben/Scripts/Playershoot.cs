@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; // Added for UI elements
 
 public class Playershoot : MonoBehaviour
 {
@@ -9,36 +10,41 @@ public class Playershoot : MonoBehaviour
 
     // Spread shot variables
     [Header("Spread Shot Settings")]
-    public float spreadAngleDegrees = 30f;
-    public int spreadBulletCount = 5;
+    public float spreadAngleDegrees = 30f; // Single declaration of spreadAngleDegrees
+    public int spreadBulletCount = 5; // Number of bullets in the spread
 
     // Charge shot variables
     private float chargeStartTime;
     private bool isCharging = false;
-    private const float MAX_CHARGE_TIME = 1f;
+    private const float MAX_CHARGE_TIME = 1f; // Maximum charge time in seconds
     private const float MAX_SCALE_MULTIPLIER = 3f;
 
     // Weapon modes
-    private enum WeaponMode { Normal, SpreadShot, ChargeShot }
+    private enum WeaponMode
+    {
+        Normal,
+        SpreadShot,
+        ChargeShot
+    }
     private WeaponMode currentMode = WeaponMode.Normal;
 
     // Audio variables
     [Header("Audio Settings")]
-    public AudioClip honk;
+    public AudioClip honk; // Assign your MP3 file here
     private AudioSource audioSource;
 
     // Shooting delay variables
     [Header("Shooting Delay Settings")]
-    public float normalShotDelay = 0.5f;
-    public float spreadShotDelay = 1f;
-    public float chargeShotDelay = 1.5f;
+    public float normalShotDelay = 0.5f; // Delay for Normal mode
+    public float spreadShotDelay = 1f; // Delay for SpreadShot mode
+    public float chargeShotDelay = 1.5f; // Delay for ChargeShot mode
     private float lastShotTime = 0f;
 
-    // UI Elements
+    // UI elements
     [Header("UI Elements")]
-    public GameObject normalUI;      // UI for Normal mode
-    public GameObject spreadShotUI; // UI for Spread Shot mode
-    public GameObject chargeShotUI; // UI for Charge Shot mode
+    public GameObject normalShotUI;
+    public GameObject spreadShotUI;
+    public GameObject chargeShotUI;
 
     void Start()
     {
@@ -46,7 +52,8 @@ public class Playershoot : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
 
-        UpdateUI(); // Initialize UI state
+        // Set initial UI state
+        UpdateUIElements();
     }
 
     void Update()
@@ -56,19 +63,19 @@ public class Playershoot : MonoBehaviour
         {
             currentMode = WeaponMode.Normal;
             Debug.Log("Switched to Normal Shot");
-            UpdateUI();
+            UpdateUIElements();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentMode = WeaponMode.SpreadShot;
             Debug.Log("Switched to Spread Shot");
-            UpdateUI();
+            UpdateUIElements();
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentMode = WeaponMode.ChargeShot;
             Debug.Log("Switched to Charge Shot");
-            UpdateUI();
+            UpdateUIElements();
         }
 
         // Shooting mechanics
@@ -98,18 +105,42 @@ public class Playershoot : MonoBehaviour
         }
     }
 
-    void UpdateUI()
+    // Update UI elements based on current weapon mode
+    void UpdateUIElements()
     {
-        // Enable/Disable UI elements based on the current weapon mode
-        if (normalUI != null) normalUI.SetActive(currentMode == WeaponMode.Normal);
-        if (spreadShotUI != null) spreadShotUI.SetActive(currentMode == WeaponMode.SpreadShot);
-        if (chargeShotUI != null) chargeShotUI.SetActive(currentMode == WeaponMode.ChargeShot);
+        // Make sure UI elements exist before trying to use them
+        if (normalShotUI != null && spreadShotUI != null && chargeShotUI != null)
+        {
+            // Set all to inactive first
+            normalShotUI.SetActive(false);
+            spreadShotUI.SetActive(false);
+            chargeShotUI.SetActive(false);
+
+            // Then activate only the one corresponding to current mode
+            switch (currentMode)
+            {
+                case WeaponMode.Normal:
+                    normalShotUI.SetActive(true);
+                    break;
+                case WeaponMode.SpreadShot:
+                    spreadShotUI.SetActive(true);
+                    break;
+                case WeaponMode.ChargeShot:
+                    chargeShotUI.SetActive(true);
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("One or more UI elements are not assigned in the inspector!");
+        }
     }
 
     bool CanShoot()
     {
         float currentDelay = 0f;
 
+        // Determine the delay based on the current weapon mode
         switch (currentMode)
         {
             case WeaponMode.Normal:
@@ -123,12 +154,12 @@ public class Playershoot : MonoBehaviour
                 break;
         }
 
+        // Check if enough time has passed since the last shot
         if (Time.time - lastShotTime >= currentDelay)
         {
             lastShotTime = Time.time; // Update the last shot time
             return true;
         }
-
         return false;
     }
 
@@ -142,15 +173,19 @@ public class Playershoot : MonoBehaviour
     {
         Playhonk();
 
+        // Calculate the angle between each bullet in the spread
         float angleStep = spreadAngleDegrees * 2 / (spreadBulletCount - 1);
 
         for (int i = 0; i < spreadBulletCount; i++)
         {
+            // Calculate the rotation for this bullet
             float currentAngle = -spreadAngleDegrees + (angleStep * i);
+
             Quaternion bulletRotation = Quaternion.Euler(
                 bulletSpawnPoint.rotation.eulerAngles + new Vector3(0, currentAngle, 0)
             );
 
+            // Create the bullet with the calculated rotation
             CreateBullet(bulletSpawnPoint.position, bulletRotation, 1f);
         }
     }
@@ -167,8 +202,10 @@ public class Playershoot : MonoBehaviour
 
         Playhonk();
 
+        // Calculate charge duration
         float chargeDuration = Mathf.Clamp(Time.time - chargeStartTime, 0f, MAX_CHARGE_TIME);
 
+        // Calculate scale multiplier based on charge time
         float scaleMultiplier = 1f + (chargeDuration / MAX_CHARGE_TIME) * (MAX_SCALE_MULTIPLIER - 1f);
 
         CreateBullet(bulletSpawnPoint.position, bulletSpawnPoint.rotation, scaleMultiplier);
@@ -180,18 +217,24 @@ public class Playershoot : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, position, rotation);
 
+        // Add Bullet component
         Bullet bulletScript = bullet.AddComponent<Bullet>();
-
         bulletScript.bulletSpeed = bulletSpeed;
-
         bulletScript.bulletLifetime = bulletLifetime;
 
+        // Scale the bullet based on charge time
         bullet.transform.localScale *= scaleMultiplier;
 
+        // Adjust text rotation
         TextMesh textMesh = bullet.GetComponentInChildren<TextMesh>();
-
         if (textMesh != null)
+        {
             textMesh.transform.localRotation = Quaternion.Euler(90, 0, 0);
+            // Optionally, you could scale the text size here if desired
+            textMesh.characterSize *= scaleMultiplier;
+        }
+
+        bullet.transform.Rotate(0, 270, 0);
 
         return bullet;
     }
@@ -205,4 +248,3 @@ public class Playershoot : MonoBehaviour
         }
     }
 }
-
