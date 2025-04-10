@@ -4104,7 +4104,7 @@ MonoBehaviour:
     isBossWave: 0
   - waveName: 
     enemyPrefabs:
-    - {fileID: 4262077912982088966, guid: 75efb274b225de54faaba73618cd38df, type: 3}
+    - {fileID: 6883869467012211502, guid: c0bcaa242db29c24c808d2d6f9a189bd, type: 3}
     spawnDelay: 1
     isBossWave: 1
   spawnArea: {fileID: 1939133189}
